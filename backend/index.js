@@ -4,6 +4,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const hallRoutes = require('./routes/hallRoutes')
+const examRoutes = require('./routes/examRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/hall', hallRoutes)
+app.use('/exam', examRoutes)
 
 mongoose.connect(DB_URL)
     .then(() => {

@@ -1,9 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
 const hallRoutes = require('./routes/hallRoutes')
+const teacherRouter = require('./routes/teacherRoute')
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -17,6 +19,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/hall', hallRoutes)
+app.use('/teacher', teacherRouter)
 
 mongoose.connect(DB_URL)
     .then(() => {

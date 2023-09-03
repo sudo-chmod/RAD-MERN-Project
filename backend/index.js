@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 require('dotenv').config()
 
+const hallRoutes = require('./routes/hallRoutes')
+
 const app = express()
 const PORT = process.env.PORT || 8080
 const DB_URL = process.env.DB_URL
@@ -13,6 +15,8 @@ app.use((req, res, next) => {
     console.log(req.method, req.path)
     next()
 })
+
+app.use('/hall', hallRoutes)
 
 mongoose.connect(DB_URL)
     .then(() => {

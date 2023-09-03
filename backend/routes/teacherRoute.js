@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addTeacher, updateTeacher, deleteTeacher, getTeacher, getAllTeachers } = require('../controllers/teacher');
+const { addTeacher, updateTeacher, deleteTeacher, getTeacher, getAllTeachers } = require('../controllers/teacherController');
 
 router.post('/add', addTeacher)
 router.put('/update/:id', updateTeacher)

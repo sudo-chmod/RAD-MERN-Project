@@ -7,7 +7,7 @@ const app = express();
 
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -22,7 +22,7 @@ mongoose.connect(DB_URL)
     console.log('Error in connecting DB', err);
 })
 
-const userRouter = require('./routes/teacher.js');
+const userRouter = require('./routes/teacherRoute.js');
 app.use('/teacher', userRouter);
 
 

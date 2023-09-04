@@ -4,6 +4,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const hallRoutes = require('./routes/hallRoutes')
+const teacherRouter = require('./routes/teacherRoute')
 const Staff_member_router = require("./routes/staffMemberRoutes")
 
 const app = express()
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/hall', hallRoutes)
+app.use('/teacher', teacherRouter)
 app.use("/staff", Staff_member_router)
 
 mongoose.connect(DB_URL)

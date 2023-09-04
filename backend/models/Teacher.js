@@ -2,42 +2,38 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const teacherSchema = new Schema({
-    fname:{
+    tchId:{
         type: String,
         required: true
     },
-    lname:{
+    firstName:{
         type: String,
-        required: false
+        required: true
     },
-    phoneNumber:{
+    lastName:{
+        type: String,
+        required: true
+    },
+    mobile:{
         type: String,
         required: true
     },
     address:{
         type: String,
-        required: false
-    },
-    email:{
-        type: String,
         required: true
     },
-    Subjects:{
+    qualifications:{
         type: String,
         required: true
-    },
-    Qulifications:{
-        type: String,
-        required: false
     },
     sex:{
         type: String,
         required: true
     },
-
-    School:{
+    email:{
         type: String,
-        required: false
+        required: true,
+        unique: true
     },
     password:{
         type: String,
@@ -45,6 +41,6 @@ const teacherSchema = new Schema({
     }
 })
 
-const teacher = mongoose.model("teacher", teacherSchema);
+const teacher = mongoose.model("Teacher", teacherSchema);
 
 module.exports = teacher;

@@ -10,7 +10,7 @@ const {
 router.post('/add', addHall)
 router.get('/', viewAllHalls)
 router.get('/:id', viewHall)
-router.delete('/:id', removeHall)
-router.put('/:id', updateHall)
+router.delete('/edit/:id', removeHall)
+router.put('/edit/:id', updateHall)
 
 module.exports = router

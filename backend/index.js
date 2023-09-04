@@ -1,11 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
 const hallRoutes = require('./routes/hallRoutes')
 const teacherRouter = require('./routes/teacherRoute')
 const Staff_member_router = require("./routes/staffMemberRoutes")
+
 
 const app = express()
 const PORT = process.env.PORT || 8080

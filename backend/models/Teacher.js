@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const teacherSchema = new Schema({
     tchId: {
-        type: String,
+        type: Number,
         required: true
     },
     firstName: {
@@ -17,6 +17,10 @@ const teacherSchema = new Schema({
     mobile: {
         type: String,
         required: true
+    },
+    NIC: {
+        type: String,
+        require: true
     },
     address: {
         type: String,

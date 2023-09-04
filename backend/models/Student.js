@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
     stdId: {
-        type: String,
+        type: Number,
         require: true,
     },
     yearOfStudy: {

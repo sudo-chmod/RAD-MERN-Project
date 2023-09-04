@@ -12,7 +12,7 @@ const addSubject = async (req, res) => {
         code,
         title,
         description,
-        yearOfStudy,
+        yearOfStudy
     };
 
     await Subject.create(newSubject)
@@ -43,7 +43,7 @@ const updateSubject = async (req, res) => {
         code,
         title,
         description,
-        yearOfStudy,
+        yearOfStudy
     }
 
     await Subject.findByIdAndUpdate(subId, updateSubject)

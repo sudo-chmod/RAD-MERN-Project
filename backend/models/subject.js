@@ -21,7 +21,10 @@ const subjectSchema = new Schema({
     },
     students: [ String ],
     teachers: [ String ]
-});
+},
+    {
+        timestamps: true
+    });
 
 const Subject = mongoose.model("Subject", subjectSchema);
 

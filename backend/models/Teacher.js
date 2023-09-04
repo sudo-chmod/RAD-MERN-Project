@@ -2,44 +2,43 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const teacherSchema = new Schema({
-    tchId:{
+    tchId: {
         type: String,
         required: true
     },
-    firstName:{
+    firstName: {
         type: String,
         required: true
     },
-    lastName:{
+    lastName: {
         type: String,
         required: true
     },
-    mobile:{
+    mobile: {
         type: String,
         required: true
     },
-    address:{
+    address: {
         type: String,
         required: true
     },
-    qualifications:{
+    qualifications: {
         type: String,
         required: true
     },
-    sex:{
+    sex: {
         type: String,
         required: true
     },
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true
-    },
-    password:{
-        type: String,
-        required: true
     }
-})
+},
+    {
+        timestamps: true
+    })
 
 const teacher = mongoose.model("Teacher", teacherSchema);
 

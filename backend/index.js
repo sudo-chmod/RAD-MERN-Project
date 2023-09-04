@@ -4,10 +4,11 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 
+const studentRoutes = require("./routes/studentRoutes")
+const teacherRoutes = require('./routes/teacherRoutes')
+const subjectRoutes = require('./routes/subjectRoutes')
+const staffRoutes = require("./routes/staffMemberRoutes")
 const hallRoutes = require('./routes/hallRoutes')
-const teacherRouter = require('./routes/teacherRoute')
-const Staff_member_router = require("./routes/staffMemberRoutes")
-
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -20,9 +21,11 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use("/student", studentRoutes)
+app.use('/teacher', teacherRoutes)
+app.use('/subject', subjectRoutes)
+app.use("/staff", staffRoutes)
 app.use('/hall', hallRoutes)
-app.use('/teacher', teacherRouter)
-app.use("/staff", Staff_member_router)
 
 mongoose.connect(DB_URL)
     .then(() => {

@@ -1,10 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
-const hallRoutes = require('./routes/hallRoutes')
+const studentRoutes = require("./routes/studentRoutes")
+const teacherRoutes = require('./routes/teacherRoutes')
+const subjectRoutes = require('./routes/subjectRoutes')
+const staffRoutes = require("./routes/staffMemberRoutes")
 const examRoutes = require('./routes/examRoutes')
+const hallRoutes = require('./routes/hallRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -17,8 +22,12 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/hall', hallRoutes)
+app.use("/student", studentRoutes)
+app.use('/teacher', teacherRoutes)
+app.use('/subject', subjectRoutes)
+app.use("/staff", staffRoutes)
 app.use('/exam', examRoutes)
+app.use('/hall', hallRoutes)
 
 mongoose.connect(DB_URL)
     .then(() => {

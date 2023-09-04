@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addTeacher, updateTeacher, deleteTeacher, getTeacher, getAllTeachers } = require('../controllers/teacherController');
+const { addTeacher, updateTeacher, deleteTeacher, getTeacher, getAllTeachers } = require('../controllers/teacherControllers');
 
 router.post('/add', addTeacher)
 router.get('/', getAllTeachers)

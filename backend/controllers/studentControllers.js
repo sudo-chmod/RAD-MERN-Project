@@ -14,8 +14,7 @@ const addStudent = async(req,res)=>{
         gender,
         DOB,
         email,
-        password,
-        role
+        password
     } = req.body
 
     const hashedPassword = await bcrypt.hash(password,10)
@@ -31,8 +30,7 @@ const addStudent = async(req,res)=>{
         gender,
         DOB,
         email,
-        password : hashedPassword,
-        role
+        password : hashedPassword
     })
     .then((response)=>{
         res.status(200).json({status : `Student ${response.stdId} is added`})

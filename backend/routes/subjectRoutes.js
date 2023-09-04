@@ -5,7 +5,7 @@ const {
     updateSubject,
     removeSubject,
     viewSubject
-} = require("../controller/subjectControllers")
+} = require("../controllers/subjectControllers")
 
 router.post("/add", addSubject);
 router.get("/", viewAllSubject);

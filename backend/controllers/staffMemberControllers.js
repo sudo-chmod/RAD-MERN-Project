@@ -1,15 +1,20 @@
 let staff_member = require("../models/StaffMember")
 
 const add_staff_member = async (req, res) => {
-    const {name, age, type, salary, NIC, address} = req.body
+    const {stfId, firstName, lastName, category, gender, mobile, NIC, civilStatus, type, address, salary} = req.body
 
     const new_member = new staff_member({
-        name,
-        age,
-        type,
-        salary,
-        NIC,
-        address
+        stfId, 
+        firstName, 
+        lastName, 
+        category, 
+        gender, 
+        mobile, 
+        NIC, 
+        civilStatus,
+        type, 
+        address,
+        salary
     })
 
     await new_member.save().then(() => {
@@ -30,14 +35,19 @@ const display_staff_member = async (req, res) => {
 const update_staff_member = async (req, res) => {
     const User_Id = req.params.Id
 
-    const {name, age, type, salary, NIC, address} = req.body
+    const {stfId, firstName, lastName, category, gender, mobile, NIC, civilStatus, type, address, salary} = req.body
     const update_staff_member_data = {
-        name,
-        age,
-        type,
-        salary,
-        NIC,
-        address
+        stfId, 
+        firstName, 
+        lastName, 
+        category, 
+        gender, 
+        mobile, 
+        NIC, 
+        civilStatus,
+        type, 
+        address,
+        salary
     }
 
     const update = await staff_member.findByIdAndUpdate(User_Id, update_staff_member_data).then(() => {

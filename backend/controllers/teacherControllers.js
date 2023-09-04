@@ -1,83 +1,80 @@
-const user = require('../models/Teacher.js');
+const Teacher = require('../models/Teacher.js');
+const User = require('../models/User.js');
 const bcrypt = require('bcrypt');
 
 exports.addTeacher = async (req, res) => {
-    const { tchId, firstName, lastName, mobile, address, qualifications, sex, email } = req.body;
+    const { firstName, lastName, mobile, address, qualifications, sex, email, password, NIC } = req.body;
 
+    if (await User.findOne({ email })) {
+        return res.status(400).json({ status: 'Email already exists' })
+    }
 
-    const newUser = new user({
-        tchId,
-        firstName,
-        lastName,
-        mobile,
-        address,
-        qualifications,
-        sex,
-        email
-    });
+    const temp = await Teacher.find({}).sort({ tchId: -1 }).limit(1)
+    if (temp.length > 0) {
+        tchId = temp[ 0 ].tchId + 1
+    } else {
+        tchId = 2101
+    }
 
-    await newUser.save()
+    const newTeacher = { tchId, firstName, lastName, mobile, address, NIC, qualifications, sex, email }
+    const newUser = { email, password: await bcrypt.hash(password, 10), role: 'teacher' }
+
+    await Teacher.create(newTeacher) && await User.create(newUser)
         .then(() => {
-            res.json("Teacher Added");
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error with adding user", error: err.message });
+            res.json('Teacher Added');
+        }).catch((err) => {
+            res.status(500).send({ status: 'Error with adding Teacher', error: err.message });
         })
 }
 
 exports.getAllTeachers = async (req, res) => {
-    await user.find().select('-password').lean()
-    then((users) => {
-        res.json(users);
-    })
+    await Teacher.find()
+        .then((users) => {
+            res.json(users);
+        })
         .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error with users", error: err.message });
+            res.status(500).send({ status: 'Error with users', error: err.message });
         })
 }
 
 exports.getTeacher = async (req, res) => {
     let userId = req.params.id;
 
-    await user.findById(userId).select('-password').lean()
-        .then((user) => {
-            res.status(200).send({ status: "User fetched", user });
-        }).catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error with get user", error: err.message });
+    await Teacher.findById(userId)
+        .then((Teacher) => {
+            res.status(200).send({ status: 'User fetched', Teacher });
+        })
+        .catch((err) => {
+            res.status(500).send({ status: 'Error with get Teacher', error: err.message });
         })
 }
 
 exports.updateTeacher = async (req, res) => {
     let userId = req.params.id;
-    const { firstName, lastName, mobile, address, qualifications, sex } = req.body;
-    const updateUser = {
-        firstName,
-        lastName,
-        mobile,
-        address,
-        qualifications,
-        sex
+    const { firstName, lastName, mobile, address, qualifications, sex, NIC } = req.body;
+
+    if (await User.findOne({ email })) {
+        return res.status(400).json({ status: 'Email already exists' })
     }
-    await user.findByIdAndUpdate(userId, updateUser)
+
+    const updateUser = { firstName, lastName, mobile, address, qualifications, sex, NIC }
+
+    await Teacher.findByIdAndUpdate(userId, updateUser)
         .then(() => {
-            res.status(200).send({ status: "User updated" });
+            res.status(200).send({ status: 'User updated' });
         })
         .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error with updating user", error: err.message });
+            res.status(500).send({ status: 'Error with updating Teacher', error: err.message });
         })
 }
 
 exports.deleteTeacher = async (req, res) => {
     let userId = req.params.id;
-    await user.findByIdAndDelete(userId)
+    await Teacher.findByIdAndDelete(userId)
         .then(() => {
-            res.status(200).send({ status: "User deleted" });
+            res.status(200).send({ status: 'User deleted' });
         })
         .catch((err) => {
-            console.log(err);
-            res.status(500).send({ status: "Error with delete user", error: err.message });
+            res.status(500).send({ status: 'Error with delete Teacher', error: err.message });
         })
 }

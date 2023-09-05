@@ -12,7 +12,7 @@ const examRoutes = require('./routes/examRoutes')
 const hallRoutes = require('./routes/hallRoutes')
 
 const app = express()
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT
 const DB_URL = process.env.DB_URL
 
 app.use(cors())

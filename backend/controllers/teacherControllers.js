@@ -2,7 +2,7 @@ const Teacher = require('../models/Teacher.js');
 const User = require('../models/User.js');
 const bcrypt = require('bcrypt');
 
-exports.addTeacher = async (req, res) => {
+const addTeacher = async (req, res) => {
     const { firstName, lastName, mobile, address, qualifications, sex, email, password, NIC } = req.body;
 
     if (await User.findOne({ email })) {
@@ -27,7 +27,7 @@ exports.addTeacher = async (req, res) => {
         })
 }
 
-exports.getAllTeachers = async (req, res) => {
+const getAllTeachers = async (req, res) => {
     await Teacher.find()
         .then((users) => {
             res.json(users);
@@ -37,7 +37,7 @@ exports.getAllTeachers = async (req, res) => {
         })
 }
 
-exports.getTeacher = async (req, res) => {
+const getTeacher = async (req, res) => {
     let userId = req.params.id;
 
     await Teacher.findById(userId)
@@ -49,7 +49,7 @@ exports.getTeacher = async (req, res) => {
         })
 }
 
-exports.updateTeacher = async (req, res) => {
+const updateTeacher = async (req, res) => {
     let userId = req.params.id;
     const { firstName, lastName, mobile, address, qualifications, sex, NIC } = req.body;
 
@@ -68,7 +68,7 @@ exports.updateTeacher = async (req, res) => {
         })
 }
 
-exports.deleteTeacher = async (req, res) => {
+const deleteTeacher = async (req, res) => {
     let userId = req.params.id;
     await Teacher.findByIdAndDelete(userId)
         .then(() => {
@@ -77,4 +77,12 @@ exports.deleteTeacher = async (req, res) => {
         .catch((err) => {
             res.status(500).send({ status: 'Error with delete Teacher', error: err.message });
         })
+}
+
+module.exports = {
+    addTeacher,
+    updateTeacher,
+    deleteTeacher,
+    getTeacher,
+    getAllTeachers
 }

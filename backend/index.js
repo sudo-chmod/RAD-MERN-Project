@@ -1,9 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 require('dotenv').config()
 
+const authRoutes = require("./routes/authRoutes")
 const studentRoutes = require("./routes/studentRoutes")
 const teacherRoutes = require('./routes/teacherRoutes')
 const subjectRoutes = require('./routes/subjectRoutes')
@@ -22,6 +22,7 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use("/auth", authRoutes)
 app.use("/student", studentRoutes)
 app.use('/teacher', teacherRoutes)
 app.use('/subject', subjectRoutes)

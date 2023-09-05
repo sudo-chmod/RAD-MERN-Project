@@ -21,19 +21,19 @@ const addTeacher = async (req, res) => {
 
     await Teacher.create(newTeacher) && await User.create(newUser)
         .then(() => {
-            res.json('Teacher Added');
+            res.status(200).send({ status: 'New teacher is added' });
         }).catch((err) => {
-            res.status(500).send({ status: 'Error with adding Teacher', error: err.message });
+            res.status(500).send({ error: err.message });
         })
 }
 
 const getAllTeachers = async (req, res) => {
     await Teacher.find()
-        .then((users) => {
-            res.json(users);
+        .then((response) => {
+            res.status(200).send(response);
         })
         .catch((err) => {
-            res.status(500).send({ status: 'Error with users', error: err.message });
+            res.status(500).send({ error: err.message });
         })
 }
 
@@ -42,40 +42,36 @@ const getTeacher = async (req, res) => {
 
     await Teacher.findById(userId)
         .then((Teacher) => {
-            res.status(200).send({ status: 'User fetched', Teacher });
+            res.status(200).send(Teacher);
         })
         .catch((err) => {
-            res.status(500).send({ status: 'Error with get Teacher', error: err.message });
+            res.status(500).send({ error: err.message });
         })
 }
 
 const updateTeacher = async (req, res) => {
     let userId = req.params.id;
     const { firstName, lastName, mobile, address, qualifications, sex, NIC } = req.body;
-
-    if (await User.findOne({ email })) {
-        return res.status(400).json({ status: 'Email already exists' })
-    }
-
     const updateUser = { firstName, lastName, mobile, address, qualifications, sex, NIC }
 
     await Teacher.findByIdAndUpdate(userId, updateUser)
         .then(() => {
-            res.status(200).send({ status: 'User updated' });
+            res.status(200).send({ status: 'Teacher is updated' });
         })
         .catch((err) => {
-            res.status(500).send({ status: 'Error with updating Teacher', error: err.message });
+            res.status(500).send({ error: err.message });
         })
 }
 
 const deleteTeacher = async (req, res) => {
     let userId = req.params.id;
+
     await Teacher.findByIdAndDelete(userId)
         .then(async (response) => {
             if (response) {
                 await User.findOneAndDelete({ email: response.email })
                     .then(() => {
-                        res.status(200).json({ status: 'The teacher is deleted' })
+                        res.status(200).json({ status: 'Teacher is deleted' })
                     }).catch((err) => {
                         res.status(500).json({ status: err.message })
                     })
@@ -84,14 +80,8 @@ const deleteTeacher = async (req, res) => {
             }
         })
         .catch((err) => {
-            res.status(500).send({ status: 'Error with delete Teacher', error: err.message });
+            res.status(500).send({ error: err.message });
         })
 }
 
-module.exports = {
-    addTeacher,
-    updateTeacher,
-    deleteTeacher,
-    getTeacher,
-    getAllTeachers
-}
+module.exports = { addTeacher, updateTeacher, deleteTeacher, getTeacher, getAllTeachers }

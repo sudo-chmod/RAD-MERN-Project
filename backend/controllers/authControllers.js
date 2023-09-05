@@ -6,11 +6,12 @@ const UserLogin = async (req, res) => {
     const { email, password } = req.body;
 
     const loginUser = await User.findOne({ email }).exec()
+
     if (!loginUser)
         return res.status(400).json({ status: 'Email not found' })
 
     if (!(await bcrypt.compare(password, loginUser.password)))
-        return res.status(400).json({ status: 'Password incorrect' })
+        return res.status(400).json({ status: 'Password is incorrect' })
 
     const accessToken = jwt.sign(
         {
@@ -18,18 +19,14 @@ const UserLogin = async (req, res) => {
             email: loginUser.email,
             role: loginUser.role
         },
-        process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+        process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
 
-    res.status(200).json({
-        status: 'Login Success!',
-        email: loginUser.email,
-        role: loginUser.role,
-        accessToken
-    })
+    res.status(200).json({ status: 'Login success', accessToken })
 }
 
 const isAuth = (req, res, next) => {
     const authHeader = req.headers.authorization
+
     if (!authHeader)
         return res.status(400).json({ status: 'Unauthorized' })
 
@@ -51,8 +48,4 @@ const isWho = (...roles) => {
     }
 }
 
-module.exports = {
-    UserLogin,
-    isAuth,
-    isWho
-}
+module.exports = { UserLogin, isAuth, isWho }

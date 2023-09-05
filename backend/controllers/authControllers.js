@@ -33,8 +33,6 @@ const isAuth = (req, res, next) => {
     if (!authHeader)
         return res.status(400).json({ status: 'Unauthorized' })
 
-    console.log(authHeader)
-
     const accessToken = authHeader.split(' ')[ 1 ]
 
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {

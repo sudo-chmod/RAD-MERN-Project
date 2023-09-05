@@ -71,8 +71,17 @@ const updateTeacher = async (req, res) => {
 const deleteTeacher = async (req, res) => {
     let userId = req.params.id;
     await Teacher.findByIdAndDelete(userId)
-        .then(() => {
-            res.status(200).send({ status: 'User deleted' });
+        .then(async (response) => {
+            if (response) {
+                await User.findOneAndDelete({ email: response.email })
+                    .then(() => {
+                        res.status(200).json({ status: 'The teacher is deleted' })
+                    }).catch((err) => {
+                        res.status(500).json({ status: err.message })
+                    })
+            } else {
+                res.status(404).json({ status: 'Teacher not found' })
+            }
         })
         .catch((err) => {
             res.status(500).send({ status: 'Error with delete Teacher', error: err.message });

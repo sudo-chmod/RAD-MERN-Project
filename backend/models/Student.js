@@ -41,6 +41,10 @@ const studentSchema = new mongoose.Schema({
         type: String,
         require: true,
         unique: true
+    },
+    subjects: {
+        type: Array,
+        "default": []
     }
 },
     {

@@ -18,9 +18,7 @@ const subjectSchema = new Schema({
     yearOfStudy: {
         type: String,
         required: true
-    },
-    students: [ String ],
-    teachers: [ String ]
+    }
 },
     {
         timestamps: true

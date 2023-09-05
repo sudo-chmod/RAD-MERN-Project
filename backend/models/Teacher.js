@@ -38,6 +38,10 @@ const teacherSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },
+    subjects: {
+        type: Array,
+        "default": []
     }
 },
     {

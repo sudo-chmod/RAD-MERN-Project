@@ -1,5 +1,7 @@
 const router = require("express").Router();
+const Student = require("../models/Student");
 let Subject = require("../models/Subject");
+const User = require("../models/User");
 
 const addSubject = async (req, res) => {
     const code = req.body.code;
@@ -76,4 +78,98 @@ const viewSubject = async (req, res) => {
         })
 };
 
-module.exports = { addSubject, viewAllSubject, updateSubject, removeSubject, viewSubject };
+const entrollSubject = async (req, res) => {
+    let subId = req.params.id;
+    let user = req.user;
+
+    await Subject.findById(subId)
+        .then(async (subject) => {
+            if (subject)
+                await Student.findOneAndUpdate({ email: user.email }, { $push: { subjects: subject.code } })
+                    .then((student) => {
+                        res.status(200).json({ status: `Subject is entrolled by ${ student.firstName }` })
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ eror: err.message })
+                    })
+            else
+                res.status(404).json({ status: 'Subject not found' })
+        })
+        .catch((err) => {
+            res.status(500).json({ eror: err.message })
+        })
+};
+
+const unentrollSubject = async (req, res) => {
+    let subId = req.params.id;
+    let user = req.user;
+
+    await Subject.findById(subId)
+        .then(async (subject) => {
+            if (subject)
+                await Student.findOneAndUpdate({ email: user.email }, { $pull: { subjects: subject.code } })
+                    .then((student) => {
+                        res.status(200).json({ status: `Subject is unentrolled by ${ student.firstName }` })
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ eror: err.message })
+                    })
+            else
+                res.status(404).json({ status: 'Subject not found' })
+        })
+        .catch((err) => {
+            res.status(500).json({ eror: err.message })
+        })
+};
+
+const isEnrolled = async (req, res, next) => {
+    let subId = req.params.id;
+    let user = req.user;
+
+    await Subject.findById(subId)
+        .then(async (subject) => {
+            if (subject)
+                await Student.findOne({ email: user.email })
+                    .then((student) => {
+                        if (!(student.subjects.includes(subject.code)))
+                            return res.status(400).json({ status: 'Student not entrolled' })
+                        next()
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ eror1: err.message })
+                    })
+            else
+                res.status(404).json({ status: 'Subject not found' })
+        })
+        .catch((err) => {
+            res.status(500).json({ eror2: err.message })
+        })
+};
+
+const isNotEnrolled = async (req, res, next) => {
+    let subId = req.params.id;
+    let user = req.user;
+
+    await Subject.findById(subId)
+        .then(async (subject) => {
+            if (subject)
+                await Student.findOne({ email: user.email })
+                    .then((student) => {
+                        if ((student.subjects.includes(subject.code)))
+                            return res.status(400).json({ status: 'Student is already entrolled' })
+                        next()
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ eror1: err.message })
+                    })
+            else
+                res.status(404).json({ status: 'Subject not found' })
+        })
+        .catch((err) => {
+            res.status(500).json({ eror2: err.message })
+        })
+};
+
+
+
+module.exports = { addSubject, viewAllSubject, updateSubject, removeSubject, viewSubject, entrollSubject, unentrollSubject, isEnrolled, isNotEnrolled };

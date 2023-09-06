@@ -17,7 +17,7 @@ const addStudent = async (req, res) => {
     }
 
     const newStudent = { stdId, firstName, lastName, yearOfStudy, address, mobile, NIC, gender, DOB, email }
-    const newUser = { email, password: await bcrypt.hash(password, 10), role: "student" }
+    const newUser = { firstName, email, password: await bcrypt.hash(password, 10), role: "student" }
 
     await Student.create(newStudent) && await User.create(newUser)
         .then(() => {

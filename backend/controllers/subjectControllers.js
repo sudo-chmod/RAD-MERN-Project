@@ -136,13 +136,13 @@ const isEnrolled = async (req, res, next) => {
                         next()
                     })
                     .catch((err) => {
-                        res.status(500).json({ eror1: err.message })
+                        res.status(500).json({ eror: err.message })
                     })
             else
                 res.status(404).json({ status: 'Subject not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror2: err.message })
+            res.status(500).json({ eror: err.message })
         })
 };
 
@@ -160,13 +160,13 @@ const isNotEnrolled = async (req, res, next) => {
                         next()
                     })
                     .catch((err) => {
-                        res.status(500).json({ eror1: err.message })
+                        res.status(500).json({ eror: err.message })
                     })
             else
                 res.status(404).json({ status: 'Subject not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror2: err.message })
+            res.status(500).json({ eror: err.message })
         })
 };
 

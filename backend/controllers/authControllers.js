@@ -1,4 +1,5 @@
 const User = require('../models/User.js');
+const Student = require('../models/Student.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -48,4 +49,28 @@ const isWho = (...roles) => {
     }
 }
 
-module.exports = { UserLogin, isAuth, isWho }
+const isMe = async (req, res, next) => {
+    const stdId = req.params.id
+    const user = req.user
+
+    if (user.role === 'admin')
+        return next()
+
+    await Student.findById(stdId)
+        .then(async (student) => {
+            await User.findOne({ email: user.email })
+                .then((user) => {
+                    if (student.email !== user.email)
+                        return res.status(403).json({ status: 'Forbidden' })
+                    next()
+                })
+                .catch((err) => {
+                    res.status(500).json({ error: err.message })
+                })
+        })
+        .catch((err) => {
+            res.status(500).json({ error: err.message })
+        })
+}
+
+module.exports = { UserLogin, isAuth, isWho, isMe }

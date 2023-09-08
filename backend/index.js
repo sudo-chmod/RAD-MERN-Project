@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 require('dotenv').config()
 
@@ -17,6 +18,7 @@ const DB_URL = process.env.DB_URL
 
 app.use(cors())
 app.use(express.json())
+app.use(cookieParser())
 app.use((req, res, next) => {
     console.log(req.method, req.path)
     next()

@@ -5,8 +5,8 @@ const { isAuth, isWho } = require('../controllers/authControllers')
 
 
 router.post('/add', isAuth, isWho('admin', 'teacher'), addExam)
-router.get('/', viewAllExams)
-router.get('/:id', viewExam)
+router.get('/', isAuth, viewAllExams)
+router.get('/:id', isAuth, viewExam)
 router.delete('/:id', isAuth, isWho('admin', 'teacher'), removeExam)
 router.put('/:id', isAuth, isWho('admin', 'teacher'), updateExam)
 

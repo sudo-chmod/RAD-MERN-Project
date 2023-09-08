@@ -20,20 +20,55 @@ const UserLogin = async (req, res) => {
             email: loginUser.email,
             role: loginUser.role
         },
-        process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+        process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' })
 
-    res.status(200).json({ status: 'Login success', accessToken })
+    res.cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        maxAge: 1000 * 60 * 60 * 30
+    })
+
+    res.status(200).json({ status: 'Login success' })
+}
+
+const UserLogout = (req, res) => {
+    res.clearCookie('accessToken')
+    res.status(200).json({ status: 'Logout success' })
+}
+
+const UserResetPassword = async (req, res) => {
+    const { password, newPassword } = req.body
+    const user = req.user
+
+    if (password === newPassword)
+        return res.status(400).json({ status: 'New password must be different from old password' })
+
+    await User.findOne({ email: user.email })
+        .then(async (user) => {
+            if (!(await bcrypt.compare(password, user.password)))
+                return res.status(400).json({ status: 'Password is incorrect' })
+
+            await User.findByIdAndUpdate(user._id, { password: await bcrypt.hash(newPassword, 10) })
+                .then(() => {
+                    res.status(200).json({ status: 'Password changed' })
+                })
+                .catch((err) => {
+                    res.status(500).json({ error: err.message })
+                })
+        })
+        .catch((err) => {
+            res.status(500).json({ error: err.message })
+        })
 }
 
 const isAuth = (req, res, next) => {
-    const authHeader = req.headers.authorization
+    const token = req.cookies.accessToken
 
-    if (!authHeader)
+    if (!token)
         return res.status(400).json({ status: 'Unauthorized' })
 
-    const accessToken = authHeader.split(' ')[ 1 ]
-
-    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err)
             return res.status(403).json({ status: 'Forbidden', err })
         req.user = user
@@ -73,4 +108,4 @@ const isMe = async (req, res, next) => {
         })
 }
 
-module.exports = { UserLogin, isAuth, isWho, isMe }
+module.exports = { UserLogin, UserLogout, UserResetPassword, isAuth, isWho, isMe }

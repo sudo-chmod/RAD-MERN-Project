@@ -1,5 +1,6 @@
 const User = require('../models/User.js');
 const Student = require('../models/Student.js');
+const Teacher = require('../models/Teacher.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -85,27 +86,34 @@ const isWho = (...roles) => {
 }
 
 const isMe = async (req, res, next) => {
-    const stdId = req.params.id
+    const id = req.params.id
     const user = req.user
+    let dispalyUser
 
-    if (user.role === 'admin')
+    if (user.role === 'admin') {
         return next()
+    } else if (user.role === 'student') {
+        await Student.findById(id)
+            .then((student) => {
+                dispalyUser = student
+            })
+            .catch((err) => {
+                res.status(500).json({ error: err.message })
+            })
+    } else {
+        await Teacher.findById(id)
+            .then((teacher) => {
+                dispalyUser = teacher
+            })
+            .catch((err) => {
+                res.status(500).json({ error: err.message })
+            })
+    }
 
-    await Student.findById(stdId)
-        .then(async (student) => {
-            await User.findOne({ email: user.email })
-                .then((user) => {
-                    if (student.email !== user.email)
-                        return res.status(403).json({ status: 'Forbidden' })
-                    next()
-                })
-                .catch((err) => {
-                    res.status(500).json({ error: err.message })
-                })
-        })
-        .catch((err) => {
-            res.status(500).json({ error: err.message })
-        })
+    if (dispalyUser.email !== user.email)
+        return res.status(403).json({ status: 'Forbidden' })
+    next()
 }
+
 
 module.exports = { UserLogin, UserLogout, UserResetPassword, isAuth, isWho, isMe }

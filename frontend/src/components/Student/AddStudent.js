@@ -3,16 +3,16 @@ import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
 
-
-function AddTeacher() {
+function AddStudent() {
 
     const [ firstName, setFirstName ] = useState("")
     const [ lastName, setLastName ] = useState("")
     const [ mobile, setMobile ] = useState("")
     const [ NIC, setNIC ] = useState("")
     const [ address, setAddress ] = useState("")
-    const [ qualifications, setQualifications ] = useState("")
-    const [ sex, setSex ] = useState("")
+    const [ yearOfStudy, setYearOfStudy ] = useState("")
+    const [ DOB, setDOB ] = useState("")
+    const [ gender, setGender] = useState("")
     const [ password, setPassword ] = useState("")
     const [ email, setEmail ] = useState("")
 
@@ -20,22 +20,23 @@ function AddTeacher() {
 
     function sendData(e) {
         e.preventDefault();
-        const newTeacher = {
+        const newStudent = {
             firstName,
             lastName,
             mobile,
             address,
-            qualifications,
-            sex,
+            yearOfStudy,
+            DOB,
+            gender,
             email,
             password,
             NIC
         }
 
-        axios.post("http://localhost:8080/teacher/add", newTeacher)
+        axios.post("http://localhost:8080/student/add", newStudent)
             .then(() => {
-                alert("New Teacher is Added!")
-                navigate("/teacher")
+                alert("New Student is Added!")
+                navigate("/student")
             })
             .catch((err) => {
                 alert(err)
@@ -49,8 +50,9 @@ function AddTeacher() {
         setMobile("")
         setNIC("")
         setAddress("")
-        setQualifications("")
-        setSex("")
+        setYearOfStudy("")
+        setDOB("")
+        setGender("")
         setPassword("")
         setEmail("")
     }
@@ -64,7 +66,7 @@ function AddTeacher() {
                         <div className="col-md-3">
                             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
                                 <img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile" />
-                                <span className="font-weight-bold">Add Teacher</span>
+                                <span className="font-weight-bold">Add Student</span>
                                 <div className="mt-5 text-center" style={ { "display": "flex" } }>
                                     <div>
                                         <button className="btn btn-primary submit-button mx-4" onClick={ sendData }>Save</button>
@@ -109,7 +111,7 @@ function AddTeacher() {
                                 </div>
                                 <br />
                                 <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <h2 className="text-right"><strong>Teacher Details</strong></h2>
+                                    <h2 className="text-right"><strong>Student Details</strong></h2>
 
                                 </div>
 
@@ -118,20 +120,20 @@ function AddTeacher() {
                                     <div className="row mt-2">
                                         <div className="col-md-6">
                                             <label htmlFor="firstName" className="labels">First Name</label>
-                                            <input type="text"
+                                            <input type="email"
                                                 className="form-control"
                                                 placeholder="Enter First Name"
-
+                                                id="email"
                                                 onChange={ (e) => { setFirstName(e.target.value) } }
                                                 value={ firstName }
                                             />
                                         </div>
                                         <div className="col-md-6">
                                             <label htmlFor="lastName" className="labels">Last Name</label>
-                                            <input type="text"
+                                            <input type="email"
                                                 className="form-control"
                                                 placeholder="Enter Last Name"
-
+                                                id="email"
                                                 onChange={ (e) => { setLastName(e.target.value) } }
                                                 value={ lastName }
                                             />
@@ -141,10 +143,10 @@ function AddTeacher() {
                                     <div className="row mt-3">
                                         <div className="col-md-12">
                                             <label for="address" className="labels">Address</label>
-                                            <input type="text"
+                                            <input type="email"
                                                 className="form-control"
                                                 placeholder="Enter Address"
-
+                                                id="email"
                                                 onChange={ (e) => { setAddress(e.target.value) } }
                                                 value={ address }
                                             />
@@ -153,8 +155,8 @@ function AddTeacher() {
 
                                     <div className="row mt-3">
                                         <div className="col-md-6">
-                                            <label htmlFor="mobile" className="labels">Mobile Number</label>
-                                            <input type="text"
+                                            <label htmlFor="phoneNumber" className="labels">Mobile Number</label>
+                                            <input type="email"
                                                 className="form-control"
                                                 placeholder="Enter Mobile Number"
                                                 maxLength={ 10 }
@@ -163,7 +165,7 @@ function AddTeacher() {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label htmlFor="nic" className="labels">NIC Number</label>
+                                            <label htmlFor="state" className="labels">NIC Number</label>
                                             <input type="text"
                                                 className="form-control"
                                                 placeholder="Enter NIC Number"
@@ -175,35 +177,36 @@ function AddTeacher() {
                                     </div>
 
                                     <div className="row mt-3">
-                                        <div className="col-md-6">
-                                            <label htmlFor="gender" className="labels">Sex</label>
-                                            <select className="form-control" id="gender" onChange={ (e) => { setSex(e.target.value) } } value={ sex }>
-                                                <option value="">Select Sex</option>
+                                        <div className="col-md-4">
+                                            <label for="year" className="labels">Year of Study</label>
+                                            <select className="form-control" onChange={ (e) => { setYearOfStudy(e.target.value) } }
+                                                value={ yearOfStudy }>
+                                                <option value="">Select Year of Study</option>
+                                                <option value="1">1st Year</option>
+                                                <option value="2">2nd Year</option>
+                                                <option value="3">3rd Year</option>
+                                                <option value="4">4th Year</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label htmlFor="dob" className="labels">DOB</label>
+                                            <input type="date"
+                                                className="form-control"         
+                                                onChange={ (e) => { setDOB(e.target.value) } } value={ DOB }
+                                            />
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label htmlFor="gender" className="labels">Gender</label>
+                                            <select className="form-control" id="gender" onChange={ (e) => { setGender(e.target.value) } } value={ gender }>
+                                                <option value="">Select Gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="other">Other</option>
                                             </select>
+                                            
                                         </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="highestQualification" className="labels">Qualification</label>
-                                            <select className="form-control" id="highestQualification" onChange={ (e) => { setQualifications(e.target.value) } } value={ qualifications }>
-                                                <option value="">Select your highest Qualification</option>
-                                                <option value="Ph.D. in Education">Ph.D. in Education</option>
-                                                <option value="Master of Education (M.Ed.)">Master of Education (M.Ed.)</option>
-                                                <option value="Master of Arts in Education (MA Education)">Master of Arts in Education (MA Education)</option>
-                                                <option value="Master of Science in Education (MSc Education)">Master of Science in Education (MSc Education)</option>
-                                                <option value="Master of Philosophy in Education (MPhil Education)">Master of Philosophy in Education (MPhil Education)</option>
-                                                <option value="Doctor of Education (Ed.D.)">Doctor of Education (Ed.D.)</option>
-                                                <option value="Postgraduate Diploma in Education">Postgraduate Diploma in Education</option>
-                                                <option value="Postgraduate Certificate in Education (PGCE)">Postgraduate Certificate in Education (PGCE)</option>
-                                                <option value="Bachelor of Education (B.Ed.)">Bachelor of Education (B.Ed.)</option>
-                                                <option value="Bachelor of Arts in Education (BA Education)">Bachelor of Arts in Education (BA Education)</option>
-                                                <option value="Bachelor of Science in Education (BSc Education)">Bachelor of Science in Education (BSc Education)</option>
-                                                <option value="Diploma in Education">Diploma in Education</option>
-                                                <option value="Vidyapeetha (Equivalent to a Diploma or Certificate in Education)">Vidyapeetha (Equivalent to a Diploma or Certificate in Education)</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
+                                       
+                        
                                     </div>
                                 </div>
 
@@ -217,5 +220,5 @@ function AddTeacher() {
     );
 }
 
-export default AddTeacher;
+export default AddStudent;
 

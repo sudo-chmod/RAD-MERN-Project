@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 
-function ViewExams() {
+function ViewExam() {
 
     const { id } = useParams()
     const [ exam, setExam ] = useState({})
@@ -75,4 +75,4 @@ function ViewExams() {
     );
 }
 
-export default ViewExams;
+export default ViewExam;

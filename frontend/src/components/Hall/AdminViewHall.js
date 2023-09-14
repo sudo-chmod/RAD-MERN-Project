@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 
 
-export default function ViewHall() {
+export default function AdminViewHall() {
     const { id } = useParams()
     const navigate = useNavigate()
 
@@ -76,5 +76,3 @@ export default function ViewHall() {
         </div>
     );
 }
-
-

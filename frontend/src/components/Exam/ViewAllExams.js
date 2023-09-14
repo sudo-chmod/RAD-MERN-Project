@@ -1,11 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-function ViewAllExams() {
+export default function ViewAllExams() {
   return (
     <div>
-        
+      
     </div>
-  );
+  )
 }
-
-export default ViewAllExams;

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 
-export default function ViewStudent() {
+export default function AdminViewStudent() {
     const { id } = useParams()
     const navigate = useNavigate()
 

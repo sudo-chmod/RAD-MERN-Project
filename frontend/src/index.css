@@ -11,3 +11,195 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Path: frontend/src/components/Counter.css */
+.Counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-item {
+  background-color: #f9dfcf;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #f9dfcf;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.Header {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  align: center;
+  background-color: #f7eded;
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.user-details {
+  background-color: #ffffff;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.form {
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 10px 0;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.form-outline .form-control {
+  min-height: auto;
+  padding: .32rem .75rem;
+  border: 5;
+  background: transparent;
+  transition: all .2s linear;
+}
+
+body {
+  background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #BA68C8
+}
+
+.back:hover {
+  color: #682773;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.add-experience:hover {
+  background: #BA68C8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #BA68C8
+}
+
+.labels {
+  font-weight: bold;
+}
+
+.user-card {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 20px 0;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  height: 150px;
+}
+
+.user-card img {
+  width: 100px;
+}
+
+.form-border {
+  border-radius: 5px;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 10px 0;
+  border: 1px solid #c2c2c2;
+  border-radius: 10px;
+}
+
+.submit-button {
+  background: #44a44c;
+  color: white;
+  width: auto;
+  padding: 5px 20px;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  border: none
+}
+
+.submit-button:hover {
+  background : #4ada56;
+  box-shadow: none;
+  border: 2px solid #000000;
+  
+}
+
+.submit-button:focus {
+  background: #682773;
+  box-shadow: none
+}
+
+.clear-button {
+  background: #b55656;
+  color: white;
+  width: auto;
+  padding: 5px 20px;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  border: none
+}
+
+.clear-button:hover {
+  background: #ca2c2c;
+  box-shadow: none;
+  border: 2px solid #000000;
+
+}
+
+.clear-button:focus {
+  background: #682773;
+  box-shadow: none
+}

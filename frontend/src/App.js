@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Home from './components/Home';
+import HomePage from './pages/homePage';
 import Login from './components/Login';
 import AdminLayout from './components/Layouts/AdminLayout';
 import TeacherLayout from './components/Layouts/TeacherLayout';
@@ -30,7 +30,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={ <Home /> } />
+          <Route index element={ <HomePage /> } />
           <Route path="login" element={ <Login /> } />
 
           <Route path="exam">

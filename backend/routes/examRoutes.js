@@ -4,11 +4,11 @@ const { addExam, viewAllExams, viewExam, updateExam, removeExam } = require('../
 const { isAuth, isWho } = require('../controllers/authControllers')
 
 
-router.post('/add', isAuth, isWho('admin', 'teacher'), addExam)
-router.get('/', isAuth, viewAllExams)
-router.get('/:id', isAuth, viewExam)
-router.delete('/:id', isAuth, isWho('admin', 'teacher'), removeExam)
-router.put('/:id', isAuth, isWho('admin', 'teacher'), updateExam)
+router.post('/add', addExam)
+router.get('/', viewAllExams)
+router.get('/:id', viewExam)
+router.delete('/:id', removeExam)
+router.put('/edit/:id', updateExam)
 
 
 module.exports = router

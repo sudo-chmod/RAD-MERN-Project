@@ -12,10 +12,11 @@ const addSubject = async (req, res) => {
 
     await Subject.create(newSubject)
         .then(() => {
-            res.status(200).json({ status: 'New subject is added!' });
+            res.json({ status: true, message: 'New subject is added!' });
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message });
+            res.json({ status: false, message: err.message })
+
         });
 
 };
@@ -23,10 +24,11 @@ const addSubject = async (req, res) => {
 const viewAllSubject = async (req, res) => {
     await Subject.find()
         .then((subject) => {
-            res.status(200).json(subject);
+            res.json({ status: true, subject })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message });
+            res.json({ status: false, message: err.message })
+
         });
 };
 
@@ -38,11 +40,12 @@ const updateSubject = async (req, res) => {
     await Subject.findByIdAndUpdate(subId, updateSubject)
         .then((subject) => {
             if (subject)
-                res.status(200).json({ status: 'Subject is updated' })
+                res.json({ status: true, message: 'Subject is updated' })
             else
-                res.status(404).json({ status: 'Subject not found' })
+                res.json({ status: false, message: 'Student not found' })
         }).catch((err) => {
-            res.status(500).json({ eror: err.message });
+            res.json({ status: false, message: err.message })
+
         })
 
 };
@@ -53,12 +56,13 @@ const removeSubject = async (req, res) => {
     await Subject.findByIdAndDelete(subId)
         .then((subject) => {
             if (subject)
-                res.status(200).json({ status: 'Subject is deleted' })
+                res.json({ status: true, message:'Subject is deleted' })
             else
-                res.status(404).json({ status: 'Subject not found' })
+                res.json({ status: false, message: 'Student not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message });
+            res.json({ status: false, message: err.message })
+
         })
 };
 
@@ -69,12 +73,13 @@ const viewSubject = async (req, res) => {
     await Subject.findById(subId)
         .then((subject) => {
             if (subject)
-                res.status(200).json(subject)
+                res.json({ status: true, subject })
             else
-                res.status(404).json({ status: 'Subject not found' })
+                res.json({ status: false, message: 'Student not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 };
 
@@ -87,16 +92,18 @@ const entrollSubject = async (req, res) => {
             if (subject)
                 await Student.findOneAndUpdate({ email: user.email }, { $push: { subjects: subject.code } })
                     .then((student) => {
-                        res.status(200).json({ status: `Subject is entrolled by ${ student.firstName }` })
+                        res.json({ status: true, message: `Subject is entrolled by ${ student.firstName }` })
                     })
                     .catch((err) => {
-                        res.status(500).json({ eror: err.message })
+                        res.json({ status: false, message: err.message })
+
                     })
             else
-                res.status(404).json({ status: 'Subject not found' })
+                res.json({ status: false, message: 'Student not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 };
 
@@ -109,16 +116,18 @@ const unentrollSubject = async (req, res) => {
             if (subject)
                 await Student.findOneAndUpdate({ email: user.email }, { $pull: { subjects: subject.code } })
                     .then((student) => {
-                        res.status(200).json({ status: `Subject is unentrolled by ${ student.firstName }` })
+                        res.json({ status: true, message:`Subject is unentrolled by ${ student.firstName }` })
                     })
                     .catch((err) => {
-                        res.status(500).json({ eror: err.message })
+                        res.json({ status: false, message: err.message })
+
                     })
             else
-                res.status(404).json({ status: 'Subject not found' })
+                res.json({ status: false, message: 'Student not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 };
 
@@ -132,17 +141,19 @@ const isEnrolled = async (req, res, next) => {
                 await Student.findOne({ email: user.email })
                     .then((student) => {
                         if (!(student.subjects.includes(subject.code)))
-                            return res.status(400).json({ status: 'Student not entrolled' })
+                            return res.json({ status: false, message: 'Student not entrolled' })
                         next()
                     })
                     .catch((err) => {
-                        res.status(500).json({ eror: err.message })
+                        res.json({ status: false, message: err.message })
+
                     })
             else
-                res.status(404).json({ status: 'Subject not found' })
+                res.json({ status: false, message: 'Student not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 };
 
@@ -156,17 +167,19 @@ const isNotEnrolled = async (req, res, next) => {
                 await Student.findOne({ email: user.email })
                     .then((student) => {
                         if ((student.subjects.includes(subject.code)))
-                            return res.status(400).json({ status: 'Student is already entrolled' })
+                            return res.json({ status: false, message: 'Student is already entrolled' })
                         next()
                     })
                     .catch((err) => {
-                        res.status(500).json({ eror: err.message })
+                        res.json({ status: false, message: err.message })
+
                     })
             else
-                res.status(404).json({ status: 'Subject not found' })
+                res.json({ status: false, message: 'Student not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 };
 

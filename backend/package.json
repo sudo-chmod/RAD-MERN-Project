@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test" : "node index.js && cd .. && cd frontend && npm start"
   },
   "author": "",
   "license": "MIT",

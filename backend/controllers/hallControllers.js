@@ -6,20 +6,22 @@ const addHall = async (req, res) => {
 
     await Hall.create({ code, capacity, floor, type })
         .then((response) => {
-            res.status(200).json({ status: 'New hall is added' })
+            res.json({ status: true, message: 'New hall is added' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
 const viewAllHalls = async (req, res) => {
     await Hall.find({})
         .then((response) => {
-            res.status(200).json(response)
+            res.json({ status: true, response })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
@@ -29,12 +31,12 @@ const viewHall = async (req, res) => {
     await Hall.findById(hallId)
         .then((response) => {
             if (response)
-                res.status(200).json(response)
+                res.json({ status: true, response })
             else
-                res.status(404).json({ status: 'Hall not found' })
+                res.json({ status: false, message: 'Hall not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
         })
 }
 
@@ -45,12 +47,12 @@ const updateHall = async (req, res) => {
     await Hall.findOneAndUpdate({ _id: hallId }, { code, capacity, floor, type })
         .then((response) => {
             if (response)
-                res.status(200).json({ status: 'Hall is updated' })
+                res.json({ status: true, message: 'Hall is updated' })
             else
-                res.status(404).json({ status: 'Hall not found' })
+                res.json({ status: false, message: 'Hall not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
         })
 }
 
@@ -61,12 +63,12 @@ const removeHall = async (req, res) => {
     await Hall.findByIdAndDelete({ _id: hallId })
         .then((response) => {
             if (response)
-                res.status(200).json({ status: 'Hall is deleted' })
+                res.json({ status: true, message: 'Hall is deleted' })
             else
-                res.status(404).json({ status: 'Hall not found' })
+                res.json({ status: false, message: 'Hall not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
         })
 }
 

@@ -6,7 +6,7 @@ const addTeacher = async (req, res) => {
     const { firstName, lastName, mobile, address, qualifications, sex, email, password, NIC } = req.body;
 
     if (await User.findOne({ email })) {
-        return res.status(400).json({ status: 'Email already exists' })
+        return res.json({ status: false, message: 'Email already exists' })
     }
 
     const temp = await Teacher.find({}).sort({ tchId: -1 }).limit(1)
@@ -21,19 +21,19 @@ const addTeacher = async (req, res) => {
 
     await Teacher.create(newTeacher) && await User.create(newUser)
         .then(() => {
-            res.status(200).send({ status: 'New teacher is added' });
+            res.json({ status: true, message: 'New teacher is added' });
         }).catch((err) => {
-            res.status(500).send({ error: err.message });
+            res.json({ status: false, message: err.message })
         })
 }
 
 const getAllTeachers = async (req, res) => {
     await Teacher.find()
         .then((response) => {
-            res.status(200).send(response);
+            res.json({ status: true, response })
         })
         .catch((err) => {
-            res.status(500).send({ error: err.message });
+            res.json({ status: false, message: err.message })
         })
 }
 
@@ -42,10 +42,10 @@ const getTeacher = async (req, res) => {
 
     await Teacher.findById(userId)
         .then((Teacher) => {
-            res.status(200).send(Teacher);
+            res.json({ status: true, Teacher });
         })
         .catch((err) => {
-            res.status(500).send({ error: err.message });
+            res.json({ status: false, message: err.message })
         })
 }
 
@@ -56,10 +56,10 @@ const updateTeacher = async (req, res) => {
 
     await Teacher.findByIdAndUpdate(userId, updateUser)
         .then(() => {
-            res.status(200).send({ status: 'Teacher is updated' });
+            res.json({ status: true, message: 'Teacher is updated' });
         })
         .catch((err) => {
-            res.status(500).send({ error: err.message });
+            res.json({ status: false, message: err.message })
         })
 }
 
@@ -71,16 +71,16 @@ const deleteTeacher = async (req, res) => {
             if (response) {
                 await User.findOneAndDelete({ email: response.email })
                     .then(() => {
-                        res.status(200).json({ status: 'Teacher is deleted' })
+                        res.json({ status: true, message: 'Teacher is deleted' })
                     }).catch((err) => {
-                        res.status(500).json({ status: err.message })
+                        res.json({ status: false, message: err.message })
                     })
             } else {
-                res.status(404).json({ status: 'Teacher not found' })
+                res.json({ status: false, message: 'Teacher not found' })
             }
         })
         .catch((err) => {
-            res.status(500).send({ error: err.message });
+            res.json({ status: false, message: err.message })
         })
 }
 

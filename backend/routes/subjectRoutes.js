@@ -3,13 +3,13 @@ const { addSubject, viewAllSubject, updateSubject, removeSubject, viewSubject, e
 const { isAuth, isWho } = require('../controllers/authControllers')
 
 
-router.post("/add", isAuth, isWho('admin'), addSubject);
-router.get("/", isAuth, viewAllSubject);
-router.get("/:id", isAuth, viewSubject);
-router.put("/:id", isAuth, isWho('student'), isNotEnrolled, entrollSubject);
-router.patch("/:id", isAuth, isWho('student'), isEnrolled, unentrollSubject);
-router.put("/edit/:id", isAuth, isWho('admin'), updateSubject);
-router.delete("/edit/:id", isAuth, isWho('admin'), removeSubject);
+router.post("/add", addSubject);
+router.get("/", viewAllSubject);
+router.get("/:id", viewSubject);
+router.put("/:id", entrollSubject);
+router.patch("/:id", unentrollSubject);
+router.put("/edit/:id", updateSubject);
+router.delete("/:id", removeSubject);
 
 
 module.exports = router;

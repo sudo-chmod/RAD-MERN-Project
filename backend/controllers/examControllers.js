@@ -5,20 +5,21 @@ const addExam = async (req, res) => {
 
     await Exam.create({ title, type, subject, yearOfStudy, date, startTime, endTime, location })
         .then((response) => {
-            res.status(200).json({ status: 'New exam is added' })
+            res.json({ status: true, message: 'New exam is added' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
 const viewAllExams = async (req, res) => {
     await Exam.find({})
         .then((response) => {
-            res.status(200).json(response)
+            res.json({ status: true, response })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
         })
 }
 
@@ -28,12 +29,13 @@ const viewExam = async (req, res) => {
     await Exam.findById(examId)
         .then((response) => {
             if (response)
-                res.status(200).json(response)
+                res.json({ status: true, response })
             else
-                res.status(404).json({ status: 'Exam not found' })
+                res.json({ status: false, message: 'Exam not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
@@ -44,12 +46,13 @@ const updateExam = async (req, res) => {
     await Exam.findOneAndUpdate({ _id: examId }, { title, type, subject, yearOfStudy, date, startTime, endTime, location })
         .then((response) => {
             if (response)
-                res.status(200).json({ status: 'Exam is updated' })
+                res.json({ status: true, message: 'Exam is updated' })
             else
-                res.status(404).json({ status: 'Exam not found' })
+                res.json({ status: false, message: 'Exam not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
@@ -59,12 +62,13 @@ const removeExam = async (req, res) => {
     await Exam.findByIdAndDelete({ _id: examId })
         .then((response) => {
             if (response)
-                res.status(200).json({ status: 'Exam is deleted' })
+                res.json({ status: true, message: 'Exam is deleted' })
             else
-                res.status(404).json({ Eror: 'Exam not found' })
+                res.json({ status: false, message: 'Exam not found' })
         })
         .catch((err) => {
-            res.status(500).json({ eror: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 

@@ -4,11 +4,11 @@ const { addTeacher, updateTeacher, deleteTeacher, getTeacher, getAllTeachers } =
 const { isAuth, isWho, isMe } = require('../controllers/authControllers');
 
 
-router.post('/add', isAuth, isWho('admin'), addTeacher)
-router.get('/', isAuth, getAllTeachers)
-router.get('/:id', isAuth, getTeacher)
-router.put('/edit/:id', isAuth, isWho('admin', 'teacher'), isMe, updateTeacher)
-router.delete('/edit/:id', isAuth, isWho('admin'), deleteTeacher)
+router.post('/add', addTeacher)
+router.get('/', getAllTeachers)
+router.get('/:id', getTeacher)
+router.put('/edit/:id', updateTeacher)
+router.delete('/:id', deleteTeacher)
 
 
 module.exports = router;

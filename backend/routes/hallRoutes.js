@@ -4,11 +4,11 @@ const { addHall, viewAllHalls, viewHall, updateHall, removeHall } = require('../
 const { isAuth, isWho } = require('../controllers/authControllers')
 
 
-router.post('/add', isAuth, isWho('admin'), addHall)
-router.get('/', isAuth, viewAllHalls)
-router.get('/:id', isAuth, viewHall)
-router.delete('/edit/:id', isAuth, isWho('admin'), removeHall)
-router.put('/edit/:id', isAuth, isWho('admin'), updateHall)
+router.post('/add', addHall)
+router.get('/', viewAllHalls)
+router.get('/:id',  viewHall)
+router.delete('/:id', removeHall)
+router.put('/edit/:id', updateHall)
 
 
 module.exports = router

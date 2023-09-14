@@ -21,18 +21,20 @@ const addStudent = async (req, res) => {
 
     await Student.create(newStudent) && await User.create(newUser)
         .then(() => {
-            res.status(200).json({ status: 'New student is added' })
+            res.json({ status: true, message: 'New student is added' })
         }).catch((err) => {
-            res.status(500).json({ error: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
 const viewAllStudents = async (req, res) => {
     await Student.find({})
         .then((response) => {
-            res.status(200).json(response)
+            res.json({status: true, response})
         }).catch((err) => {
-            res.status(500).json({ error: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
@@ -42,12 +44,13 @@ const viewStudent = async (req, res) => {
     await Student.findById(studentID)
         .then((response) => {
             if (response) {
-                res.status(200).json(response)
+                res.json({ status: true, response })
             } else {
-                res.status(404).json({ status: 'Student not found' })
+                res.json({ status: false, message: 'Student not found' })
             }
         }).catch((err) => {
-            res.status(500).json({ error: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
@@ -57,9 +60,10 @@ const updateStudent = async (req, res) => {
 
     await Student.findByIdAndUpdate({ _id: studentID }, { yearOfStudy, firstName, lastName, address, mobile, NIC, gender, DOB })
         .then(() => {
-            res.status(200).json({ status: 'Student is updated' })
+            res.json({ status: true, message: 'Student is updated' })
         }).catch((err) => {
-            res.status(500).json({ error: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 
@@ -71,15 +75,17 @@ const deleteStudent = async (req, res) => {
             if (response) {
                 await User.findOneAndDelete({ email: response.email })
                     .then(() => {
-                        res.status(200).json({ status: 'Student is deleted' })
+                        res.json({ status: true, message: 'Student is deleted' })
                     }).catch((err) => {
-                        res.status(500).json({ error: err.message })
+                        res.json({ status: false, message: err.message })
+
                     })
             } else {
-                res.status(404).json({ status: 'Student not found' })
+                res.json({ status: false, message: 'Student not found' })
             }
         }).catch((err) => {
-            res.status(500).json({ error: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
 

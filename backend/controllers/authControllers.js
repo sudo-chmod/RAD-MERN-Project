@@ -7,13 +7,13 @@ const jwt = require('jsonwebtoken');
 const UserLogin = async (req, res) => {
     const { email, password } = req.body;
 
-    const loginUser = await User.findOne({ email }).exec()
+    const loginUser = await User.findOne({ email })
 
     if (!loginUser)
-        return res.status(400).json({ status: 'Email not found' })
+        return res.json({ status: false, message: 'Email not found' })
 
     if (!(await bcrypt.compare(password, loginUser.password)))
-        return res.status(400).json({ status: 'Password is incorrect' })
+        return res.json({ status: false, message: 'Password is incorrect' })
 
     const accessToken = jwt.sign(
         {
@@ -30,12 +30,12 @@ const UserLogin = async (req, res) => {
         maxAge: 1000 * 60 * 60 * 30
     })
 
-    res.status(200).json({ status: 'Login success' })
+    res.json({ status: true, message: 'Login success', role: loginUser.role })
 }
 
 const UserLogout = (req, res) => {
     res.clearCookie('accessToken')
-    res.status(200).json({ status: 'Logout success' })
+    res.json({ status: true, message: 'Logout success' })
 }
 
 const UserResetPassword = async (req, res) => {
@@ -43,35 +43,72 @@ const UserResetPassword = async (req, res) => {
     const user = req.user
 
     if (password === newPassword)
-        return res.status(400).json({ status: 'New password must be different from old password' })
+        return res.json({ status: false, message: 'New password must be different from old password' })
 
     await User.findOne({ email: user.email })
         .then(async (user) => {
             if (!(await bcrypt.compare(password, user.password)))
-                return res.status(400).json({ status: 'Password is incorrect' })
+                return res.json({ status: false, message: 'Password is incorrect' })
 
             await User.findByIdAndUpdate(user._id, { password: await bcrypt.hash(newPassword, 10) })
                 .then(() => {
-                    res.status(200).json({ status: 'Password changed' })
+                    res.json({ status: true, message: 'Password changed' })
                 })
                 .catch((err) => {
-                    res.status(500).json({ error: err.message })
+                    res.json({ status: false, message: err.message })
                 })
         })
         .catch((err) => {
-            res.status(500).json({ error: err.message })
+            res.json({ status: false, message: err.message })
+
         })
 }
+
+const userRole = async (req, res) => {
+    const user = req.user
+    const id = req.params.id
+
+    let dispalyUser
+
+    if (user.role === 'admin') {
+        res.json({ role: user.role, isMe: true })
+    } else if (user.role === 'student') {
+        await Student.findById(id)
+            .then((student) => {
+                dispalyUser = student
+            })
+            .catch((err) => {
+                res.json({ status: false, message: err.message })
+
+            })
+    } else {
+        await Teacher.findById(id)
+            .then((teacher) => {
+                dispalyUser = teacher
+            })
+            .catch((err) => {
+                res.json({ status: false, message: err.message })
+
+            })
+    }
+
+    if (dispalyUser.email == user.email)
+        res.json({ status: true, message: 'Allow' })
+    else
+        res.json({ status: false, message: 'Unauthorized' })
+
+}
+
 
 const isAuth = (req, res, next) => {
     const token = req.cookies.accessToken
 
     if (!token)
-        return res.status(400).json({ status: 'Unauthorized' })
+        return res.json({ status: false, message: 'Unauthorized' })
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err)
-            return res.status(403).json({ status: 'Forbidden', err })
+            return res.json({ status: false, message: 'Forbidden'})
         req.user = user
         next()
     })
@@ -80,7 +117,7 @@ const isAuth = (req, res, next) => {
 const isWho = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role))
-            return res.status(403).json({ status: 'Forbidden' })
+            return res.json({ status: false, message: 'Forbidden' })
         next()
     }
 }
@@ -98,7 +135,7 @@ const isMe = async (req, res, next) => {
                 dispalyUser = student
             })
             .catch((err) => {
-                res.status(500).json({ error: err.message })
+                res.json({ status: false, message: err.message })
             })
     } else {
         await Teacher.findById(id)
@@ -106,14 +143,14 @@ const isMe = async (req, res, next) => {
                 dispalyUser = teacher
             })
             .catch((err) => {
-                res.status(500).json({ error: err.message })
+                res.json({ status: false, message: err.message })
             })
     }
 
     if (dispalyUser.email !== user.email)
-        return res.status(403).json({ status: 'Forbidden' })
+        return res.json({ status: false, message: 'Forbidden' })
     next()
 }
 
 
-module.exports = { UserLogin, UserLogout, UserResetPassword, isAuth, isWho, isMe }
+module.exports = { UserLogin, UserLogout, UserResetPassword, userRole, isAuth, isWho, isMe }

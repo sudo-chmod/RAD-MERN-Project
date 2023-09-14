@@ -3,7 +3,7 @@ import axios from 'axios';
 import StudentCard from "./StudentCard";
 
 
-function AllStudents() {
+function ViewAllStudents() {
 
     const [ students, setstudents ] = useState([]);
     const getAllStudents = async () => {
@@ -22,14 +22,12 @@ function AllStudents() {
 
     return (
         <div className="container">
-                { students.map((student) => (
-                    
-                        <StudentCard key={student.stdId} user={student}/>
-                    
-                )) }
-
+            { students.map((student) => (
+                <StudentCard key={ student.stdId } user={ student } />
+            ))
+            }
         </div>
     )
 }
 
-export default AllStudents;
+export default ViewAllStudents;

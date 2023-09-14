@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function AllHalls() {
+export default function ViewAllHalls() {
   return (
     <div>
       

@@ -13,7 +13,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
+
         const user = {
             email: email,
             password: password
@@ -43,37 +43,40 @@ function Login() {
     }
 
     return (
-        <section className="vh-100">
+        < section className="vh-100 gradient-custom">
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div className="card shadow-2-strong" style={ { borderRadius: "1rem" } }>
+                        <div className="card shadow-2-strong" style={ { borderRadius: "2rem" } }>
                             <div className="card-body p-5 text-center">
 
                                 <h3 className="mb-5">Sign in</h3>
 
-                                <div className="form-outline mb-4">
+                                <div>
                                     <input
                                         type="email"
                                         id="typeEmailX-2"
                                         className="form-control form-control-lg"
                                         placeholder="Email"
                                         onChange={ (e) => setEmail(e.target.value) }
-                                        value={ email}
+                                        value={ email }
                                     />
                                 </div>
+                                <br />
 
-                                <div className="form-outline mb-4">
+                                <div>
                                     <input
                                         type="password"
-                
+
                                         className="form-control form-control-lg input-line"
                                         placeholder="Password"
                                         onChange={ (e) => setPassword(e.target.value) }
-                                        value={ password }/>
+                                        value={ password } />
                                 </div>
+                                <br />
+                                <br />
 
-                                <button className="btn btn-primary btn-lg profile-button btn-block" type="submit" onClick={handleSubmit}>Login</button>
+                                <button className="btn btn-primary btn-lg profile-button btn-block" type="submit" onClick={ handleSubmit }>Login</button>
 
                             </div>
                         </div>

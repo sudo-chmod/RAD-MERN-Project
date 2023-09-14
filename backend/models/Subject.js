@@ -2,29 +2,27 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const subjectSchema = new Schema({
-    
-    name: {
-        type: String,
-        required: true
-    },
-
     code: {
         type: String,
+        required: true,
+        unique: true
+    },
+    title: {
+        type: String,
         required: true
     },
-
     description: {
         type: String,
-        required:true
+        required: true
     },
-
     yearOfStudy: {
         type: String,
-        required:true
-    },
-
-    studentId: [String]
-});
+        required: true
+    }
+},
+    {
+        timestamps: true
+    });
 
 const Subject = mongoose.model("Subject", subjectSchema);
 

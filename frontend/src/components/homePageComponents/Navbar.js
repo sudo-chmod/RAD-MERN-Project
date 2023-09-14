@@ -17,7 +17,7 @@ const Navbar = () => {
         <a href="\subject">Subjects</a>
         <a href="#contactUs">Contact Us</a>
 
-        <button className="primary-button">Login</button>
+        <button className="primary-button" onClick={window.location.href = '/login'}>Login</button>
       </div>
 
 

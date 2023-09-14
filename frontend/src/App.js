@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/homePage';
 
 
+
 function App() {
   return (
     <div className="App">
@@ -11,6 +12,8 @@ function App() {
 
 
           <Route path='/' element={<HomePage />}></Route>
+
+
 
 
 

@@ -2,6 +2,7 @@ const router = require("express").Router()
 const funcs = require("../controllers/staffMemberControllers")
 const { isAuth, isWho } = require('../controllers/authControllers')
 
+router.use(isAuth, isWho('admin'))
 
 router.route("/add").post(funcs.add_Staff)
 

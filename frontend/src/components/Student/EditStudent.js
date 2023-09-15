@@ -3,7 +3,7 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 
-function EditStudent() {
+export default function EditStudent() {
 
     const navigate = useNavigate();
 

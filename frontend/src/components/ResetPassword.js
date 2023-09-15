@@ -4,10 +4,10 @@ import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
 
 
-function Login() {
+function ResetPassword() {
 
-    const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
+    const [ newPassword, setNewPassword ] = useState('')
 
     const navigate = useNavigate()
 
@@ -15,23 +15,18 @@ function Login() {
         e.preventDefault()
 
         const user = {
-            email: email,
-            password: password
+            password,
+            newPassword
         }
 
-        await axios.post("http://localhost:8080/auth/login", user)
-            .then((response) => {
+        await axios.post("http://localhost:8080/auth/reset-password", user)
+            .then(async(response) => {
                 if (response.data.status === true) {
-                    if (response.data.role === 'admin') {
-                        navigate('/admin')
-                    } else if (response.data.role === 'teacher') {
-                        navigate('/teacher')
-                    } else {
-                        navigate('/student')
-                    }
+                    alert(response.data.message)
+                    await axios.post("http://localhost:8080/auth/logout")
+                    navigate('/login')
                 } else {
-                    alert(response.data)
-                    console.log(response)
+                    alert(response.data.message)
                 }
             })
             .catch((err) => {
@@ -49,19 +44,7 @@ function Login() {
                         <div className="card shadow-2-strong" style={ { borderRadius: "2rem" } }>
                             <div className="card-body p-5 text-center">
 
-                                <h3 className="mb-5">Sign in</h3>
-
-                                <div>
-                                    <input
-                                        type="email"
-                                        id="typeEmailX-2"
-                                        className="form-control form-control-lg"
-                                        placeholder="Email"
-                                        onChange={ (e) => setEmail(e.target.value) }
-                                        value={ email }
-                                    />
-                                </div>
-                                <br />
+                                <h3 className="mb-5">Change Password</h3>
 
                                 <div>
                                     <input
@@ -73,9 +56,20 @@ function Login() {
                                         value={ password } />
                                 </div>
                                 <br />
+
+                                <div>
+                                    <input
+                                        type="password"
+
+                                        className="form-control form-control-lg input-line"
+                                        placeholder="New Password"
+                                        onChange={ (e) => setNewPassword(e.target.value) }
+                                        value={ newPassword } />
+                                </div>
+                                <br />
                                 <br />
 
-                                <button className="btn btn-primary btn-lg profile-button btn-block" type="submit" onClick={ handleSubmit }>Login</button>
+                                <button className="btn btn-primary btn-lg profile-button btn-block" type="submit" onClick={ handleSubmit }>Submit</button>
 
                             </div>
                         </div>
@@ -86,4 +80,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default ResetPassword;

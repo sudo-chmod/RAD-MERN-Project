@@ -1,8 +1,8 @@
-const { mongoose } = require("mongoose")
+const mongoose = require("mongoose")
 
 const Schema = require("mongoose").Schema
 
-const staff_schema = new Schema({
+const staffSchema = new Schema({
     stfId: {
         type: Number,
         required: true
@@ -36,7 +36,6 @@ const staff_schema = new Schema({
         required: true,
     },
     type: {
-        // Permenent or Tempory
         type: String,
         required: true,
     },
@@ -51,5 +50,6 @@ const staff_schema = new Schema({
 },
     { timestamps: true })
 
-const staff_member = mongoose.model("Staff", staff_schema)
-module.exports = staff_member
+const Staff = mongoose.model("Staff", staffSchema);
+
+module.exports = Staff

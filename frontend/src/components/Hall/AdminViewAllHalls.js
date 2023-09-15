@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ViewHall() {
+export default function AdminViewAllHalls() {
   return (
     <div>
       

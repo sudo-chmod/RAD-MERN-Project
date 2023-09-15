@@ -22,44 +22,64 @@ export default function EditStaff() {
 
     const navigate = useNavigate()
 
-    function sendData(e) {
-        e.preventDefault();
-        const newStaff = {
+    const FetchStaff = async () => {
+        await axios.get(`http://localhost:8080/staff/${ id }`)
+            .then((response) => {
+                console.log(response.data.response)
+                setFirstName(response.data.response.firstName);
+                setLastName(response.data.response.lastName);
+                setMobile(response.data.response.mobile);
+                setNIC(response.data.response.NIC);
+                setAddress(response.data.response.address);
+                setGender(response.data.response.gender)
+                setCivilStatus(response.data.response.civilStatus)
+                setCategory(response.data.response.category)
+                setType(response.data.response.type)
+                setSalary(response.data.response.salary)
+            })
+    }
+
+    useEffect(() => {
+        if (!isFetched) {
+            FetchStaff();
+            setIsFetched(true);
+        }
+    }, [ isFetched ]);
+
+
+
+    const update = async (e) => {
+        e.preventDefault()
+
+        const updateStaff = {
             firstName,
             lastName,
+            mobile,
             address,
+            NIC,
             gender,
             civilStatus,
-            mobile,
-            NIC,
             category,
             type,
             salary
         }
 
-        axios.post("http://localhost:8080/staff/add", newStaff)
+        await axios.put(`http://localhost:8080/staff/edit/${ id }`, updateStaff)
             .then(() => {
-                alert("New Staff Member is Added!")
-                navigate("/staff")
+                alert("Staff Member Updated Successfully")
+                navigate(`/staff/${ id }`)
             })
             .catch((err) => {
-                alert(err)
+                alert(err.message)
             })
+
+
     }
 
-    function clearData(e) {
-        e.preventDefault();
-        setFirstName("")
-        setLastName("")
-        setAddress("")
-        setGender("")
-        setCivilStatus("")
-        setMobile("")
-        setNIC("")
-        setCategory("")
-        setType("")
-        setSalary("")
+    const cancelation = () => {
+        navigate(`/staff/${ id }`)
     }
+
     return (
         <div className="container">
             <form>
@@ -68,13 +88,13 @@ export default function EditStaff() {
                         <div className="col-md-3">
                             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
                                 <img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile" />
-                                <span className="font-weight-bold">Add Staff Member</span>
+                                
                                 <div className="mt-5 text-center" style={ { "display": "flex" } }>
                                     <div>
-                                        <button className="btn btn-primary submit-button mx-4" onClick={ sendData }>Save</button>
+                                        <button className="btn btn-primary submit-button mx-4" onClick={ update }>Update</button>
                                     </div>
                                     <div>
-                                        <button className="btn btn-primary clear-button mx-4" onClick={ clearData }>Clear</button>
+                                        <button className="btn btn-primary clear-button mx-4" onClick={ cancelation }>Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +103,7 @@ export default function EditStaff() {
 
                             <div className="p-3 py-5">
                                 <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <h2 className="text-right"><strong>Staff Member Details</strong></h2>
+                                    <h2 className="text-right"><strong>Edit Staff Member Details</strong></h2>
 
                                 </div>
 

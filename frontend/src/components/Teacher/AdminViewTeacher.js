@@ -41,11 +41,11 @@ export default function AdminViewTeacher() {
                     <div className="col-md-3">
                         <div className="d-flex flex-column align-items-center text-center p-3 py-5">
                             <img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile" />
-                            <span className="font-weight-bold">{teacher.firstName} {teacher.lastName}</span>
-                            <span className="text-black-50">{teacher.tchId}</span>
+                            <span className="font-weight-bold">{ teacher.firstName } { teacher.lastName }</span>
+                            <span className="text-black-50">{ teacher.tchId }</span>
                             <div className="mt-5 text-center">
-                                <button className="btn btn-secondary mx-2" onClick={handleEdit}>Edit</button>
-                                <button className="btn btn-danger  mx-2" onClick={handleDelete}>Delete</button>
+                                <button className="btn btn-secondary mx-2" onClick={ handleEdit }>Edit</button>
+                                <button className="btn btn-danger  mx-2" onClick={ handleDelete }>Delete</button>
                             </div>
                         </div>
                     </div>

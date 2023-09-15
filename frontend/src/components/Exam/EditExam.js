@@ -127,10 +127,10 @@ function EditExam() {
                                 <span className="font-weight-bold">Add Exam</span>
                                 <div className="mt-5 text-center" style={ { "display": "flex" } }>
                                     <div>
-                                        <button className="btn btn-primary submit-button mx-4" onClick={ sendData }>Save</button>
+                                        <button className="btn btn-primary submit-button mx-4" onClick={ update }>Save</button>
                                     </div>
                                     <div>
-                                        <button className="btn btn-primary clear-button mx-4" onClick={ clearData }>Clear</button>
+                                        <button className="btn btn-primary clear-button mx-4" onClick={ cancelation }>Clear</button>
                                     </div>
                                 </div>
                             </div>

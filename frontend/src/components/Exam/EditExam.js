@@ -127,10 +127,10 @@ function EditExam() {
                                 <span className="font-weight-bold">Add Exam</span>
                                 <div className="mt-5 text-center" style={ { "display": "flex" } }>
                                     <div>
-                                        <button className="btn btn-primary submit-button mx-4" onClick={ update }>Save</button>
+                                        <button className="btn btn-primary submit-button mx-4" onClick={ update }>Update</button>
                                     </div>
                                     <div>
-                                        <button className="btn btn-primary clear-button mx-4" onClick={ cancelation }>Clear</button>
+                                        <button className="btn btn-primary clear-button mx-4" onClick={ cancelation }>Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ function EditExam() {
 
                             <div className="p-3 py-5">
                                 <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <h2 className="text-right"><strong>Exam Details</strong></h2>
+                                    <h2 className="text-right"><strong>Edit Exam Details</strong></h2>
                                 </div>
 
                                 <div className="form-border">

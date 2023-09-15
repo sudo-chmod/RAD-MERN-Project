@@ -9,8 +9,6 @@ function HomePage() {
         <div className="App">
             <Home />
             <About />
-
-
             <ContactUs />
             <Footer />
         </div>

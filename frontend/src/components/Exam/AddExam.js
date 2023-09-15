@@ -20,17 +20,18 @@ function AddExam() {
 
     function fetchHalls() {
         axios.get("http://localhost:8080/hall")
-            .then((res) => {
-                setHalls(res.data.response)
+            .then((response) => {
+                setHalls(response.data)
             })
             .catch((err) => {
                 alert(err.message)
             })
     }
+
     function fetchSubjects() {
         axios.get("http://localhost:8080/subject")
-            .then((res) => {
-                setSubjects(res.data.subject)
+            .then((response) => {
+                setSubjects(response.data)
             })
             .catch((err) => {
                 alert(err.message)
@@ -39,8 +40,8 @@ function AddExam() {
 
     useEffect(() => { fetchHalls() }, [])
     useEffect(() => { fetchSubjects() }, [])
-
-
+    console.log(halls)
+    console.log(subjects)
     function sendData(e) {
         e.preventDefault();
         const newExam = {
@@ -95,7 +96,7 @@ function AddExam() {
                     <div className="row">
                         <div className="col-md-3">
                             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                                <img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile" />
+                                <img className="rounded-circle mt-5" width="150px" src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?w=2000" alt="Profile" />
                                 <span className="font-weight-bold">Add Exam</span>
                                 <div className="mt-5 text-center" style={ { "display": "flex" } }>
                                     <div>

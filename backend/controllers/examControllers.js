@@ -16,7 +16,7 @@ const addExam = async (req, res) => {
 const viewAllExams = async (req, res) => {
     await Exam.find({})
         .then((response) => {
-            res.json({ status: true, response })
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })
@@ -28,10 +28,7 @@ const viewExam = async (req, res) => {
 
     await Exam.findById(examId)
         .then((response) => {
-            if (response)
-                res.json({ status: true, response })
-            else
-                res.json({ status: false, message: 'Exam not found' })
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })

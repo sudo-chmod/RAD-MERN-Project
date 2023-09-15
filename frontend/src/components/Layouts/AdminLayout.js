@@ -1,8 +1,11 @@
+import AdminNav from "../NavPanels/AdminNav";
+import { Outlet } from "react-router-dom";
 
 export default function AdminLayout() {
   return (
-      <div>
-          
-      </div>
+    <div>
+      <AdminNav />
+      <Outlet />
+    </div>
   )
 }

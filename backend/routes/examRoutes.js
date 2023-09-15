@@ -3,13 +3,11 @@ const router = express.Router()
 const { addExam, viewAllExams, viewExam, updateExam, removeExam } = require('../controllers/examControllers')
 const { isAuth, isWho } = require('../controllers/authControllers')
 
-router.use(isAuth)
-
-router.post('/add', isWho('admin', 'teacher'), addExam)
+router.post('/add', addExam)
 router.get('/', viewAllExams)
 router.get('/:id', viewExam)
-router.delete('/:id', isWho('admin', 'teacher'), removeExam)
-router.put('/edit/:id', isWho('admin', 'teacher'), updateExam)
+router.delete('/:id', removeExam)
+router.put('/edit/:id', updateExam)
 
 
 module.exports = router

@@ -32,7 +32,7 @@ export default function AdminViewHall() {
 
     const handleEdit = async (e) => {
         e.preventDefault();
-        navigate('/hall/edit/' + id)
+        navigate('admin/hall/edit/' + id)
     }
     return (
         <div className="container">

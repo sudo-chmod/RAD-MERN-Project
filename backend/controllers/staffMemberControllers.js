@@ -22,7 +22,7 @@ const add_Staff = async (req, res) => {
 
 const display_Staff = async (req, res) => {
     await Staff.find().then((response) => {
-        res.json({ status: true, response })
+        res.json(response)
     }).catch((err) => {
         res.json({ status: false, message: err.message })
     })
@@ -53,7 +53,7 @@ const delete_Staff = async (req, res) => {
 const fetch_Staff = async (req, res) => {
     const User_Id = req.params.id
     await Staff.findById(User_Id).then((response) => {
-        res.json({ status: true, response })
+        res.json(response)
     }).catch((err) => {
         res.json({ status: false, message: err.message })
     })

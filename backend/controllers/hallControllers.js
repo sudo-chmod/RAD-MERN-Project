@@ -1,6 +1,5 @@
 const Hall = require('../models/Hall')
 
-
 const addHall = async (req, res) => {
     const { code, capacity, floor, type } = req.body
 
@@ -17,7 +16,7 @@ const addHall = async (req, res) => {
 const viewAllHalls = async (req, res) => {
     await Hall.find({})
         .then((response) => {
-            res.json({ status: true, response })
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })
@@ -30,10 +29,7 @@ const viewHall = async (req, res) => {
 
     await Hall.findById(hallId)
         .then((response) => {
-            if (response)
-                res.json({ status: true, response })
-            else
-                res.json({ status: false, message: 'Hall not found' })
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })

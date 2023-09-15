@@ -1,6 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const HomeAuto = () => {
     return (
         <div id="carouselExampleDark" class="carousel carousel-dark slide">

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 
-function ViewExams() {
+function AdminViewExam() {
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -12,7 +12,7 @@ function ViewExams() {
     const fetchExam = async () => {
         await axios.get('http://localhost:8080/exam/' + id)
             .then((response) => {
-                setExam(response.data)
+                setExam(response.data.response)
             })
     }
 
@@ -23,7 +23,17 @@ function ViewExams() {
         await axios.delete('http://localhost:8080/exam/' + id)
             .then(() => {
                 alert('Exam deleted successfully')
-                navigate('/task')
+                axios.post("http://localhost:8080/auth/role")
+                    .then((response) => {
+                        if (response.data.role === 'admin')
+                            navigate("/admin/exam")
+                        else
+                            navigate("teacher/exam")
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        alert(err)
+                    })
             })
             .catch((err) => {
                 alert(err)
@@ -32,7 +42,17 @@ function ViewExams() {
 
     const handleEdit = async (e) => {
         e.preventDefault();
-        navigate('/exam/edit/' + id)
+        axios.post("http://localhost:8080/auth/role")
+            .then((response) => {
+                if (response.data.role === 'admin')
+                    navigate("/admin/exam/edit/" + id)
+                else
+                    navigate("teacher/exam/edit/" + id)
+            })
+            .catch((err) => {
+                console.log(err)
+                alert(err)
+            })
     }
 
     return (
@@ -98,4 +118,4 @@ function ViewExams() {
     );
 }
 
-export default ViewExams;
+export default AdminViewExam;

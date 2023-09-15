@@ -1,7 +1,22 @@
 import React from 'react'
+import axios from 'axios'
 
 export default function ExamCard(exam) {
-    const URL = '/student/' + exam._id
+
+    let URL = ''
+    axios.post("http://localhost:8080/auth/role")
+        .then((response) => {
+            if (response.data.role === 'admin')
+                URL = 'admin/exam/' + exam._id
+            else
+                URL = 'teacher/exam/' + exam._id
+        })
+        .catch((err) => {
+            console.log(err)
+            alert(err)
+        })
+    
+    
 
     return (
         <div>

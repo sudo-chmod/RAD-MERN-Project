@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { response } = require("express");
 const Student = require("../models/Student");
 let Subject = require("../models/Subject");
 const User = require("../models/User");
@@ -23,8 +24,8 @@ const addSubject = async (req, res) => {
 
 const viewAllSubject = async (req, res) => {
     await Subject.find()
-        .then((subject) => {
-            res.json({ status: true, subject })
+        .then((response) => {
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })
@@ -56,7 +57,7 @@ const removeSubject = async (req, res) => {
     await Subject.findByIdAndDelete(subId)
         .then((subject) => {
             if (subject)
-                res.json({ status: true, message:'Subject is deleted' })
+                res.json({ status: true, message: 'Subject is deleted' })
             else
                 res.json({ status: false, message: 'Student not found' })
         })
@@ -71,11 +72,8 @@ const viewSubject = async (req, res) => {
     let subId = req.params.id;
 
     await Subject.findById(subId)
-        .then((subject) => {
-            if (subject)
-                res.json({ status: true, subject })
-            else
-                res.json({ status: false, message: 'Student not found' })
+        .then((response) => {
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })
@@ -96,7 +94,6 @@ const entrollSubject = async (req, res) => {
                     })
                     .catch((err) => {
                         res.json({ status: false, message: err.message })
-
                     })
             else
                 res.json({ status: false, message: 'Student not found' })
@@ -116,7 +113,7 @@ const unentrollSubject = async (req, res) => {
             if (subject)
                 await Student.findOneAndUpdate({ email: user.email }, { $pull: { subjects: subject.code } })
                     .then((student) => {
-                        res.json({ status: true, message:`Subject is unentrolled by ${ student.firstName }` })
+                        res.json({ status: true, message: `Subject is unentrolled by ${ student.firstName }` })
                     })
                     .catch((err) => {
                         res.json({ status: false, message: err.message })

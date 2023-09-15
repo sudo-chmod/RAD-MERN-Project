@@ -31,7 +31,7 @@ const addStudent = async (req, res) => {
 const viewAllStudents = async (req, res) => {
     await Student.find({})
         .then((response) => {
-            res.json({status: true, response})
+            res.json(response)
         }).catch((err) => {
             res.json({ status: false, message: err.message })
 
@@ -43,11 +43,7 @@ const viewStudent = async (req, res) => {
 
     await Student.findById(studentID)
         .then((response) => {
-            if (response) {
-                res.json({ status: true, response })
-            } else {
-                res.json({ status: false, message: 'Student not found' })
-            }
+            res.json(response)
         }).catch((err) => {
             res.json({ status: false, message: err.message })
 

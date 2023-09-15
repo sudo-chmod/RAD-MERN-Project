@@ -3,13 +3,12 @@ const router = express.Router()
 const { addHall, viewAllHalls, viewHall, updateHall, removeHall } = require('../controllers/hallControllers')
 const { isAuth, isWho } = require('../controllers/authControllers')
 
-router.use(isAuth)
 
-router.post('/add', isWho('admin'), addHall)
+router.post('/add',addHall)
 router.get('/', viewAllHalls)
-router.get('/:id',  viewHall)
-router.delete('/:id', isWho('admin'), removeHall)
-router.put('/edit/:id', isWho('admin') ,updateHall)
+router.get('/:id', viewHall)
+router.delete('/:id', removeHall)
+router.put('/edit/:id',updateHall)
 
 
 module.exports = router

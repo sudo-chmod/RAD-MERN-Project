@@ -49,142 +49,143 @@ import AdminViewAllStudents from './components/Student/AdminViewAllStudents';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/">
+    <div className='App'>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
 
-          <Route index element={ <HomePage /> } />
+            <Route index element={ <HomePage /> } />
 
-          <Route path="login" element={ <Login /> } />
+            <Route path="login" element={ <Login /> } />
 
-          <Route path="subject" element={ <ViewAllSubjects /> }>
-            <Route path="id" element={ <ViewSubject /> } />
-          </Route>
-
-
-          <Route path="admin">
-            <Route index element={ <AdminLayout /> } />
-            <Route path="exam">
-              <Route index element={ <AdminViewAllExams /> } />
-              <Route path="add" element={ <AddExam /> } />
-              <Route path=":id" element={ <AdminViewExam /> } />
-              <Route path="edit/:id" element={ <EditExam /> } />
+            <Route path="subject" element={ <ViewAllSubjects /> }>
+              <Route path="id" element={ <ViewSubject /> } />
             </Route>
 
-            <Route path="hall">
-              <Route index element={ <AdminViewAllHalls /> } />
-              <Route path="add" element={ <AddHall /> } />
-              <Route path=":id" element={ <AdminViewHall /> } />
-              <Route path="edit/:id" element={ <EditHall /> } />
-            </Route>
 
-            <Route path="staff">
-              <Route index element={ <AdminViewAllStaff /> } />
-              <Route path="add" element={ <AddStaff /> } />
-              <Route path=":id" element={ <AdminViewStaff /> } />
-              <Route path="edit/:id" element={ <EditStaff /> } />
-            </Route>
+            <Route path="admin" element={ <AdminLayout /> }>
+              <Route path="exam">
+                <Route index element={ <AdminViewAllExams /> } />
+                <Route path="add" element={ <AddExam /> } />
+                <Route path=":id" element={ <AdminViewExam /> } />
+                <Route path="edit/:id" element={ <EditExam /> } />
+              </Route>
 
-            <Route path="teacher">
-              <Route index element={ <AdminViewAllTeachers /> } />
-              <Route path="add" element={ <AddTeacher /> } />
-              <Route path=":id" element={ <AdminViewTeacher /> } />
-              <Route path="edit/:id" element={ <EditTeacher /> } />
-            </Route>
+              <Route path="hall">
+                <Route index element={ <AdminViewAllHalls /> } />
+                <Route path="add" element={ <AddHall /> } />
+                <Route path=":id" element={ <AdminViewHall /> } />
+                <Route path="edit/:id" element={ <EditHall /> } />
+              </Route>
 
-            <Route path="student">
-              <Route index element={ <AdminViewAllStudents /> } />
-              <Route path="add" element={ <AddStudent /> } />
-              <Route path=":id" element={ <AdminViewStudent /> } />
-              <Route path="edit/:id" element={ <EditStudent /> } />
-            </Route>
+              <Route path="staff">
+                <Route index element={ <AdminViewAllStaff /> } />
+                <Route path="add" element={ <AddStaff /> } />
+                <Route path=":id" element={ <AdminViewStaff /> } />
+                <Route path="edit/:id" element={ <EditStaff /> } />
+              </Route>
 
-            <Route path="subject">
-              <Route index element={ <AdminViewAllSubjects /> } />
-              <Route path="add" element={ <AddSubject /> } />
-              <Route path=":id" element={ <AdminViewSubject /> } />
-              <Route path="edit/:id" element={ <EditSubject /> } />
-            </Route>
-          </Route>
+              <Route path="teacher">
+                <Route index element={ <AdminViewAllTeachers /> } />
+                <Route path="add" element={ <AddTeacher /> } />
+                <Route path=":id" element={ <AdminViewTeacher /> } />
+                <Route path="edit/:id" element={ <EditTeacher /> } />
+              </Route>
 
-          <Route path="teacher">
+              <Route path="student">
+                <Route index element={ <AdminViewAllStudents /> } />
+                <Route path="add" element={ <AddStudent /> } />
+                <Route path=":id" element={ <AdminViewStudent /> } />
+                <Route path="edit/:id" element={ <EditStudent /> } />
+              </Route>
 
-            <Route index element={ <TeacherLayout /> } />
-
-            <Route path="profile">
-              <Route index element={ <AdminViewTeacher /> } />
-              <Route path="edit:id" element={ <EditTeacher /> } />
-              <Route path="reset-password:id" element={ <ResetPassword /> } />
-            </Route>
-
-            <Route path="exam">
-              <Route index element={ <AdminViewAllExams /> } />
-              <Route path="add" element={ <AddExam /> } />
-              <Route path=":id" element={ <AdminViewExam /> } />
-              <Route path="edit/:id" element={ <EditHall /> } />
+              <Route path="subject">
+                <Route index element={ <AdminViewAllSubjects /> } />
+                <Route path="add" element={ <AddSubject /> } />
+                <Route path=":id" element={ <AdminViewSubject /> } />
+                <Route path="edit/:id" element={ <EditSubject /> } />
+              </Route>
             </Route>
 
             <Route path="teacher">
-              <Route index element={ <ViewAllTeachers /> } />
-              <Route path=":id" element={ <ViewTeacher /> } />
+
+              <Route index element={ <TeacherLayout /> } />
+
+              <Route path="profile">
+                <Route index element={ <AdminViewTeacher /> } />
+                <Route path="edit:id" element={ <EditTeacher /> } />
+                <Route path="reset-password:id" element={ <ResetPassword /> } />
+              </Route>
+
+              <Route path="exam">
+                <Route index element={ <AdminViewAllExams /> } />
+                <Route path="add" element={ <AddExam /> } />
+                <Route path=":id" element={ <AdminViewExam /> } />
+                <Route path="edit/:id" element={ <EditHall /> } />
+              </Route>
+
+              <Route path="teacher">
+                <Route index element={ <ViewAllTeachers /> } />
+                <Route path=":id" element={ <ViewTeacher /> } />
+              </Route>
+
+              <Route path="student">
+                <Route index element={ <ViewAllStudents /> } />
+                <Route path=":id" element={ <ViewStudent /> } />
+              </Route>
+
+              <Route path="hall">
+                <Route index element={ <ViewAllHalls /> } />
+                <Route path=":id" element={ <ViewHall /> } />
+              </Route>
+
+              <Route path="subject">
+                <Route index element={ <ViewAllSubjects /> } />
+                <Route path=":id" element={ <AdminViewSubject /> } />
+              </Route>
             </Route>
 
             <Route path="student">
-              <Route index element={ <ViewAllStudents /> } />
-              <Route path=":id" element={ <ViewStudent /> } />
+
+              <Route path="profile">
+                <Route index element={ <AdminViewTeacher /> } />
+                <Route path="edit:id" element={ <EditTeacher /> } />
+                <Route path="reset-password" element={ <ResetPassword /> } />
+              </Route>
+              <Route index element={ <StudentLayout /> } />
+              <Route path="exam">
+                <Route index element={ <ViewAllExams /> } />
+                <Route path=":id" element={ <ViewExam /> } />
+              </Route>
+
+              <Route path="teacher">
+                <Route index element={ <ViewAllTeachers /> } />
+                <Route path=":id" element={ <ViewTeacher /> } />
+              </Route>
+
+              <Route path="student">
+                <Route index element={ <ViewAllStudents /> } />
+                <Route path=":id" element={ <ViewStudent /> } />
+              </Route>
+
+              <Route path="hall">
+                <Route index element={ <ViewAllHalls /> } />
+                <Route path=":id" element={ <ViewHall /> } />
+              </Route>
+
+              <Route path="subject">
+                <Route index element={ <ViewAllSubjects /> } />
+                <Route path=":id" element={ <AdminViewSubject /> } />
+              </Route>
             </Route>
 
-            <Route path="hall">
-              <Route index element={ <ViewAllHalls /> } />
-              <Route path=":id" element={ <ViewHall /> } />
-            </Route>
 
-            <Route path="subject">
-              <Route index element={ <ViewAllSubjects /> } />
-              <Route path=":id" element={ <AdminViewSubject /> } />
-            </Route>
+
           </Route>
+        </Routes >
 
-          <Route path="student">
-
-            <Route path="profile">
-              <Route index element={ <AdminViewTeacher /> } />
-              <Route path="edit:id" element={ <EditTeacher /> } />
-              <Route path="reset-password" element={ <ResetPassword /> } />
-            </Route>
-            <Route index element={ <StudentLayout /> } />
-            <Route path="exam">
-              <Route index element={ <ViewAllExams /> } />
-              <Route path=":id" element={ <ViewExam /> } />
-            </Route>
-
-            <Route path="teacher">
-              <Route index element={ <ViewAllTeachers /> } />
-              <Route path=":id" element={ <ViewTeacher /> } />
-            </Route>
-
-            <Route path="student">
-              <Route index element={ <ViewAllStudents /> } />
-              <Route path=":id" element={ <ViewStudent /> } />
-            </Route>
-
-            <Route path="hall">
-              <Route index element={ <ViewAllHalls /> } />
-              <Route path=":id" element={ <ViewHall /> } />
-            </Route>
-
-            <Route path="subject">
-              <Route index element={ <ViewAllSubjects /> } />
-              <Route path=":id" element={ <AdminViewSubject /> } />
-            </Route>
-          </Route>
-
-
-
-        </Route>
-      </Routes >
-
-    </BrowserRouter >
+      </BrowserRouter >
+    </div>
   )
 }
 export default App;

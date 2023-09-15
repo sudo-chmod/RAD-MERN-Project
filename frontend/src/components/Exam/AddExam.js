@@ -55,9 +55,20 @@ function AddExam() {
         }
 
         axios.post("http://localhost:8080/exam/add", newExam)
-            .then(() => {
+            .then(async () => {
                 alert("New Exam is Added!")
-                navigate("/exam")
+                await axios.post("http://localhost:8080/auth/role")
+                    .then((response) => {
+                        if (response.data.role === 'admin')
+                            navigate("/admin/exam")
+                        else
+                            navigate("teacher/exam")
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        alert(err)
+                    })
+                
             })
             .catch((err) => {
                 console.log(err)
@@ -218,4 +229,3 @@ function AddExam() {
 }
 
 export default AddExam;
-

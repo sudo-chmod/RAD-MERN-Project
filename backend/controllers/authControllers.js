@@ -92,10 +92,8 @@ const userRole = async (req, res) => {
             })
     }
 
-    if (dispalyUser.email == user.email)
-        res.json({ status: true, message: 'Allow' })
-    else
-        res.json({ status: false, message: 'Unauthorized' })
+
+    res.json({ status: true, role: dispalyUser.role })
 
 }
 
@@ -108,7 +106,7 @@ const isAuth = (req, res, next) => {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err)
-            return res.json({ status: false, message: 'Forbidden'})
+            return res.json({ status: false, message: 'Forbidden' })
         req.user = user
         next()
     })

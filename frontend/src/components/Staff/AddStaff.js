@@ -41,7 +41,7 @@ function AddStaff() {
         axios.post("http://localhost:8080/staff/add", newStaff)
             .then(() => {
                 alert("New Staff Member is Added!")
-                navigate("/staff")
+                navigate("/admin/staff")
             })
             .catch((err) => {
                 alert(err)

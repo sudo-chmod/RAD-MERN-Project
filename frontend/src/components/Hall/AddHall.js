@@ -24,7 +24,7 @@ export default function AddHall() {
         axios.post("http://localhost:8080/hall/add", newHall)
             .then(() => {
                 alert("New Hall is Added!")
-                navigate("/hall")
+                navigate("/admin/hall")
             })
             .catch((err) => {
                 alert(err)

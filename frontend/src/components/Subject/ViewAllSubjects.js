@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import SubjectCard from "../Subjects/SubjectCard";
+import SubjectCard from "./SubjectCard";
 
 
 function ViewAllSubjects() {

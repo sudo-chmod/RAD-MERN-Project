@@ -4,27 +4,33 @@ import axios from 'axios';
 
 export default function AdminViewStaff() {
 
-    
     const { id } = useParams()
     const navigate = useNavigate()
+    const [ isFetched, setIsFetched ] = useState(false);
+
 
     const [ staff, setStaff ] = useState({})
 
-    const fetchStaff = async () => {
+    const FetchStaff = async () => {
         await axios.get('http://localhost:8080/staff/' + id)
             .then((response) => {
-                setStaff (response.data)
+                setStaff(response.data.response)
             })
     }
 
-    useEffect(() => { fetchStaff() });
+    useEffect(() => {
+        if (!isFetched) {
+            FetchStaff();
+            setIsFetched(true);
+        }
+    }, [ isFetched ]);
 
     const handleDelete = async (e) => {
         e.preventDefault();
         await axios.delete('http://localhost:8080/staff/' + id)
             .then(() => {
-                alert('Staff deleted successfully')
-                navigate('/task')
+                alert('Staff Member deleted successfully')
+                navigate('/staff')
             })
             .catch((err) => {
                 alert(err)

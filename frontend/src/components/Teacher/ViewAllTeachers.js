@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import TeacherCard from "../Subjects/SubjectCard";
+import TeacherCard from "../Subject/SubjectCard";
 
 
 function ViewAllTeachers() {

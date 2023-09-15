@@ -36,7 +36,7 @@ function AddStudent() {
         axios.post("http://localhost:8080/student/add", newStudent)
             .then(() => {
                 alert("New Student is Added!")
-                navigate("/student")
+                navigate("/admin/student")
             })
             .catch((err) => {
                 alert(err)

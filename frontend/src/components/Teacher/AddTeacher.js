@@ -35,7 +35,7 @@ function AddTeacher() {
         axios.post("http://localhost:8080/teacher/add", newTeacher)
             .then(() => {
                 alert("New Teacher is Added!")
-                navigate("/teacher")
+                navigate("/admin/teacher")
             })
             .catch((err) => {
                 alert(err)

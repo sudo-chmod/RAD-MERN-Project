@@ -7,7 +7,7 @@ const { isAuth, isWho, isMe } = require('../controllers/authControllers')
 router.post("/add", addStudent);
 router.get("/", viewAllStudents);
 router.get("/:id", viewStudent);
-router.put("/edit/:id", updateStudent);
+router.put("/edit/:id",updateStudent);
 router.delete("/:id", deleteStudent);
 
 

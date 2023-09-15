@@ -1,3 +1,4 @@
+const { response } = require('express');
 const Teacher = require('../models/Teacher.js');
 const User = require('../models/User.js');
 const bcrypt = require('bcrypt');
@@ -30,7 +31,7 @@ const addTeacher = async (req, res) => {
 const getAllTeachers = async (req, res) => {
     await Teacher.find()
         .then((response) => {
-            res.json({ status: true, response })
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })
@@ -41,8 +42,8 @@ const getTeacher = async (req, res) => {
     let userId = req.params.id;
 
     await Teacher.findById(userId)
-        .then((Teacher) => {
-            res.json({ status: true, Teacher });
+        .then((response) => {
+            res.json(response)
         })
         .catch((err) => {
             res.json({ status: false, message: err.message })

@@ -42,7 +42,7 @@ export default function EditHall() {
       type
     }
 
-    await axios.put(`http://localhost:8080/Hall/edit/${id}`, updateHall)
+    await axios.put(`http://localhost:8080/hall/edit/${id}`, updateHall)
       .then(() => {
         alert("Hall Updated Successfully")
         navigate(`/Hall/${id}`)

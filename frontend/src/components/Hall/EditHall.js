@@ -96,7 +96,7 @@ export default function EditHall() {
                         className="form-control"
                         placeholder="Enter Code"
 
-                        onChange={(e) => { setcode(e.target.value) }}
+                        onChange={(e) => { setCode(e.target.value) }}
                         value={code}
                       />
                     </div>
@@ -106,7 +106,7 @@ export default function EditHall() {
                         className="form-control"
                         placeholder="Enter Capacity"
 
-                        onChange={(e) => { setcapacity(e.target.value) }}
+                        onChange={(e) => { setCapacity(e.target.value) }}
                         value={capacity}
                       />
                     </div>
@@ -119,7 +119,7 @@ export default function EditHall() {
                         className="form-control"
                         placeholder="Enter Floor"
 
-                        onChange={(e) => { setfloor(e.target.value) }}
+                        onChange={(e) => { setFloor(e.target.value) }}
                         value={floor}
                       />
                     </div>
@@ -127,7 +127,7 @@ export default function EditHall() {
 
                   <div className="col-md-6">
                     <label htmlFor="type" className="labels">Type</label>
-                    <select className="form-control" id="type" onChange={(e) => { setTypes(e.target.value) }} value={Types}>
+                    <select className="form-control" id="type" onChange={(e) => { setType(e.target.value) }} value={type}>
                       <option value="">Select hall Type</option>
                       <option value="AC">AC</option>
 

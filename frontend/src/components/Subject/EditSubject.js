@@ -43,12 +43,11 @@ export default function EditSubject() {
             code,
             title,
             description,
-            address,
             yearOfStudy,
 
         }
 
-        await axios.put(`http://localhost:8080/subject/edit/${id}`, updateStudent)
+        await axios.put(`http://localhost:8080/subject/edit/${id}`, updateSubject)
             .then(() => {
                 alert("Subject Updated Successfully")
                 navigate(`/subject/${id}`)
@@ -100,7 +99,7 @@ export default function EditSubject() {
                                             <input type="text"
                                                 className="form-control"
                                                 placeholder="Enter Subject Code"
-                                                onChange={(e) => { setcode(e.target.value) }}
+                                                onChange={(e) => { setCode(e.target.value) }}
                                                 value={code}
                                             />
                                         </div>
@@ -109,7 +108,7 @@ export default function EditSubject() {
                                             <input type="text"
                                                 className="form-control"
                                                 placeholder="Enter Subject Title"
-                                                onChange={(e) => { settitle(e.target.value) }}
+                                                onChange={(e) => { setTitle(e.target.value) }}
                                                 value={title}
                                             />
                                         </div>
@@ -122,7 +121,7 @@ export default function EditSubject() {
                                             <input type="text"
                                                 className="form-control"
                                                 placeholder="Enter Description"
-                                                onChange={(e) => { setdescription(e.target.value) }}
+                                                onChange={(e) => { setDescription(e.target.value) }}
                                                 value={description}
                                             />
                                         </div>

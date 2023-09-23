@@ -8,15 +8,15 @@ export default function EditHall() {
 
   const { id } = useParams();
 
-  const [isFetched, setIsFetched] = useState(false);
+  const [ isFetched, setIsFetched ] = useState(false);
 
-  const [code, setCode] = useState("");
-  const [capacity, setCapacity] = useState("");
-  const [floor, setFloor] = useState("");
-  const [type, setType] = useState("");
+  const [ code, setCode ] = useState("");
+  const [ capacity, setCapacity ] = useState("");
+  const [ floor, setFloor ] = useState("");
+  const [ type, setType ] = useState("");
 
   const FetchHall = async () => {
-    await axios.get(`http://localhost:8080/hall/${id}`)
+    await axios.get(`http://localhost:8080/hall/${ id }`)
       .then((response) => {
         setCode(response.data.Hall.code);
         setCapacity(response.data.Hall.capacity);
@@ -30,7 +30,7 @@ export default function EditHall() {
       FetchHall();
       setIsFetched(true);
     }
-  }, [isFetched]);
+  }, [ isFetched ]);
 
   const update = async (e) => {
     e.preventDefault()
@@ -42,10 +42,10 @@ export default function EditHall() {
       type
     }
 
-    await axios.put(`http://localhost:8080/hall/edit/${id}`, updateHall)
+    await axios.put(`http://localhost:8080/Hall/edit/${ id }`, updateHall)
       .then(() => {
         alert("Hall Updated Successfully")
-        navigate(`/Hall/${id}`)
+        navigate(`/Hall/${ id }`)
       })
       .catch((err) => {
         alert(err.message)
@@ -55,7 +55,7 @@ export default function EditHall() {
   }
 
   const cancelation = () => {
-    navigate(`/hall/${id}`)
+    navigate(`/hall/${ id }`)
   }
 
   return (
@@ -67,12 +67,12 @@ export default function EditHall() {
               <div className="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile" />
                 <span className="font-weight-bold">Add Hall</span>
-                <div className="mt-5 text-center" style={{ "display": "flex" }}>
+                <div className="mt-5 text-center" style={ { "display": "flex" } }>
                   <div>
-                    <button className="btn btn-primary submit-button mx-4" onClick={update}>Update</button>
+                    <button className="btn btn-primary submit-button mx-4" onClick={ update }>Update</button>
                   </div>
                   <div>
-                    <button className="btn btn-primary clear-button mx-4" onClick={cancelation}>Cancel</button>
+                    <button className="btn btn-primary clear-button mx-4" onClick={ cancelation }>Cancel</button>
                   </div>
                 </div>
               </div>
@@ -96,8 +96,8 @@ export default function EditHall() {
                         className="form-control"
                         placeholder="Enter Code"
 
-                        onChange={(e) => { setCode(e.target.value) }}
-                        value={code}
+                        onChange={ (e) => { setCode(e.target.value) } }
+                        value={ code }
                       />
                     </div>
                     <div className="col-md-6">
@@ -106,8 +106,8 @@ export default function EditHall() {
                         className="form-control"
                         placeholder="Enter Capacity"
 
-                        onChange={(e) => { setCapacity(e.target.value) }}
-                        value={capacity}
+                        onChange={ (e) => { setCapacity(e.target.value) } }
+                        value={ capacity }
                       />
                     </div>
                   </div>
@@ -119,15 +119,15 @@ export default function EditHall() {
                         className="form-control"
                         placeholder="Enter Floor"
 
-                        onChange={(e) => { setFloor(e.target.value) }}
-                        value={floor}
+                        onChange={ (e) => { setFloor(e.target.value) } }
+                        value={ floor }
                       />
                     </div>
                   </div>
 
                   <div className="col-md-6">
                     <label htmlFor="type" className="labels">Type</label>
-                    <select className="form-control" id="type" onChange={(e) => { setType(e.target.value) }} value={type}>
+                    <select className="form-control" id="type" onChange={ (e) => { setType(e.target.value) } } value={ type }>
                       <option value="">Select hall Type</option>
                       <option value="AC">AC</option>
 

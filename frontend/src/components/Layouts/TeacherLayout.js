@@ -1,9 +1,11 @@
-import React from 'react'
+import TeacherNav from "../NavPanels/TeacherNav";
+import { Outlet } from "react-router-dom";
 
 export default function TeacherLayout() {
   return (
     <div>
-            <h1>Teacher Layout</h1>
+      <TeacherNav/>
+      <Outlet />
     </div>
   )
 }

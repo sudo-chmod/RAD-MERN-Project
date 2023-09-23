@@ -1,9 +1,11 @@
-import React from 'react'
+import StudentNav from "../NavPanels/StudentNav";
+import { Outlet } from "react-router-dom";
 
 export default function StudentLayout() {
   return (
     <div>
-        <h1>Student Layout</h1>
+      <StudentNav />
+      <Outlet />
     </div>
   )
 }

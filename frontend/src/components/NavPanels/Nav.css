@@ -69,12 +69,12 @@ body {
     pointer-events: none;
 }
 
-.navigation ul li:nth-child(9) {
+#gap {
     margin-top: 60px;
 
 }
 
-.navigation ul li:nth-child(10):hover a {
+#lgout {
     color: red;
 }
 

@@ -3,7 +3,7 @@ import './hall.css'
 
 export default function AdminHallCard({ object }) {
 
-    const URL = 'admin/hall/edit/' + object._id
+    const URL = 'hall/' + object._id
 
     return (
         <div className="hall-container">

@@ -1,4 +1,4 @@
-import "./AdminNav.css";
+import "./Nav.css";
 import { Link } from "react-router-dom";
 
 export default function StuDashboard() {
@@ -67,7 +67,7 @@ export default function StuDashboard() {
                 <span className="title1">Staff Members</span>
               </Link>
             </li>
-            <li>
+            <li id='gap'>
               <Link to="/admin/profile">
                 <span className="icon">
                   <ion-icon name="log-out-outline"></ion-icon>
@@ -75,7 +75,7 @@ export default function StuDashboard() {
                 <span className="title1">My Profile</span>
               </Link>
             </li>
-            <li>
+            <li id='lgout'>
               <Link to="/">
                 <span className="icon">
                   <ion-icon name="log-out-outline"></ion-icon>
